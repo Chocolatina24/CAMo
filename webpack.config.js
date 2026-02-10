@@ -1,15 +1,25 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const path = require('path');
+
 module.exports = {
-  entry: {
-    bundle: [ './src/app.js' ]
-  },
+  mode: 'development',
+  entry: './src/app.js',
   output: {
-    path: __dirname + '/public',
+    path: path.resolve(__dirname, 'public'),
     filename: 'app.js'
   },
+  devtool: 'source-map',
   module: {
     rules: [
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
       {
         test: /\.css$/,
         use: [
@@ -19,7 +29,9 @@ module.exports = {
       },
       {
         test: /\.bpmn$/,
-        use: 'raw-loader'
+        use: {
+          loader: 'raw-loader'
+        }
       }
     ]
   },
@@ -29,7 +41,5 @@ module.exports = {
         { from: 'src/index.html', to: '.' }
       ]
     })
-  ],
-  mode: 'development',
-  devtool: 'source-map'
+  ]
 };

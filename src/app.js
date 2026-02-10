@@ -2,20 +2,42 @@ import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
+import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
-import './style.css';
+import './style.less';
 
 import $ from 'jquery';
-
 import BpmnModeler from 'bpmn-js/lib/Modeler';
+
+import {
+  BpmnPropertiesPanelModule,
+  BpmnPropertiesProviderModule
+} from 'bpmn-js-properties-panel';
+import magicPropertiesProviderModule from './provider/magic';
+import magicModdleDescriptor from './descriptors/magic';
+
+import {
+  debounce
+} from 'min-dash';
 
 import diagramXML from '../resources/newDiagram.bpmn';
 
 
 var container = $('#js-drop-zone');
 
-var modeler = new BpmnModeler({
+var bpmnModeler = new BpmnModeler({
   container: '#js-canvas',
+  propertiesPanel: {
+    parent: '#js-properties-panel'
+  },
+  additionalModules: [
+    BpmnPropertiesPanelModule,
+    BpmnPropertiesProviderModule,
+    magicPropertiesProviderModule
+  ],
+  moddleExtensions: {
+    magic: magicModdleDescriptor
+  }
 });
 
 function createNewDiagram() {
@@ -26,7 +48,7 @@ async function openDiagram(xml) {
 
   try {
 
-    await modeler.importXML(xml);
+    await bpmnModeler.importXML(xml);
 
     container
       .removeClass('with-error')
@@ -126,42 +148,28 @@ $(function() {
 
     try {
 
-      const { svg } = await modeler.saveSVG();
+      const { svg } = await bpmnModeler.saveSVG();
 
       setEncoded(downloadSvgLink, 'diagram.svg', svg);
     } catch (err) {
 
-      console.error('Error happened saving svg: ', err);
+      console.error('Error happened saving SVG: ', err);
+
       setEncoded(downloadSvgLink, 'diagram.svg', null);
     }
 
     try {
 
-      const { xml } = await modeler.saveXML({ format: true });
+      const { xml } = await bpmnModeler.saveXML({ format: true });
+
       setEncoded(downloadLink, 'diagram.bpmn', xml);
     } catch (err) {
 
-      console.error('Error happened saving XML: ', err);
+      console.error('Error happened saving diagram: ', err);
+
       setEncoded(downloadLink, 'diagram.bpmn', null);
     }
   }, 500);
 
-  modeler.on('commandStack.changed', exportArtifacts);
+  bpmnModeler.on('commandStack.changed', exportArtifacts);
 });
-
-
-
-// helpers //////////////////////
-
-function debounce(fn, timeout) {
-
-  var timer;
-
-  return function() {
-    if (timer) {
-      clearTimeout(timer);
-    }
-
-    timer = setTimeout(fn, timeout);
-  };
-}
