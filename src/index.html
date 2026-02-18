@@ -24,7 +24,7 @@
     </div>
 
     <div class="canvas" id="js-canvas"></div>
-    <div id="js-properties-panel"></div>
+    <div class="properties-panel-parent" id="js-properties-panel"></div>
   </div>
 
   <ul class="buttons">
@@ -42,6 +42,18 @@
       </a>
     </li>
   </ul>
+
+  <div class="filter-menu">
+    <button id="js-filter-toggle" class="filter-toggle">Filters</button>
+      <div class="filter-content" id="js-filter-content">
+        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder1 </label>
+        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder2 </label>
+        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder3 </label>
+        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder4 </label>
+        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder5 </label>
+
+      </div>
+  </div>
 
   <script src="app.js"></script>
 </html>

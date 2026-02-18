@@ -13,8 +13,8 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
-import magicPropertiesProviderModule from './provider/magic';
-import magicModdleDescriptor from './descriptors/magic';
+import contextPropertiesProviderModule from './provider/context';
+import contextModdleDescriptor from './descriptors/context';
 
 import {
   debounce
@@ -24,21 +24,25 @@ import diagramXML from '../resources/newDiagram.bpmn';
 
 
 var container = $('#js-drop-zone');
+var canvas = $('#js-canvas');
+
 
 var bpmnModeler = new BpmnModeler({
-  container: '#js-canvas',
+  container: canvas,
   propertiesPanel: {
     parent: '#js-properties-panel'
   },
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
-    magicPropertiesProviderModule
+    contextPropertiesProviderModule
   ],
   moddleExtensions: {
-    magic: magicModdleDescriptor
+    context: contextModdleDescriptor
   }
 });
+
+container.removeClass('with-diagram');
 
 function createNewDiagram() {
   openDiagram(diagramXML);
@@ -172,4 +176,22 @@ $(function() {
   }, 500);
 
   bpmnModeler.on('commandStack.changed', exportArtifacts);
+
+
+  //Filtering
+  const filterToggle = $('#js-filter-toggle');
+  const filterContent = $('#js-filter-content');
+  const filterCheckboxes = $('.filter-checkbox');
+  const canvas = bpmnModeler.get('canvas');
+
+  filterToggle.click(function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    filterContent.toggleClass('open');
+  });
+
+  filterCheckboxes.change(function() {
+    applyFilters();
+  })
+
 });

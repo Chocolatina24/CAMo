@@ -1,10 +1,7 @@
 // Import your custom property entries.
-// The entry is a text input field with logic attached to create,
-// update and delete the "spell" property.
-import spellProps from './parts/SpellProps';
-
+import rationaleProp from './parts/Rationale';
 import { is } from 'bpmn-js/lib/util/ModelUtil';
-
+import riskProp from "./parts/Risk";
 const LOW_PRIORITY = 500;
 
 
@@ -15,7 +12,7 @@ const LOW_PRIORITY = 500;
  * @param {PropertiesPanel} propertiesPanel
  * @param {Function} translate
  */
-export default function MagicPropertiesProvider(propertiesPanel, translate) {
+export default function ContextPropertiesProvider(propertiesPanel, translate) {
 
   // API ////////
 
@@ -39,8 +36,9 @@ export default function MagicPropertiesProvider(propertiesPanel, translate) {
     return function(groups) {
 
       // Add the "magic" group
-      if (is(element, 'bpmn:StartEvent')) {
-        groups.push(createMagicGroup(element, translate));
+      if (is(element, 'bpmn:SequenceFlow')) {
+        groups.push(createRationaleGroup(element, translate));
+        groups.push(createRiskGroup(element, translate));
       }
 
       return groups;
@@ -50,24 +48,37 @@ export default function MagicPropertiesProvider(propertiesPanel, translate) {
 
   // registration ////////
 
-  // Register our custom magic properties provider.
+  // Register our custom properties provider.
   // Use a lower priority to ensure it is loaded after
   // the basic BPMN properties.
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-MagicPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
+ContextPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
 
-// Create the custom magic group
-function createMagicGroup(element, translate) {
+// Create the custom group
+function createRationaleGroup(element, translate) {
 
-  // create a group called "Magic properties".
-  const magicGroup = {
-    id: 'magic',
-    label: translate('Magic properties'),
-    entries: spellProps(element),
+  // create a group
+  const rationaleGroup = {
+    id: 'context',
+    label: translate('Contextual information'),
+    entries: rationaleProp (element),
     tooltip: translate('Make sure you know what you are doing!')
   };
 
-  return magicGroup;
+  return rationaleGroup;
+}
+
+function createRiskGroup(element, translate) {
+
+  // create a group
+  const riskGroup = {
+    id: 'risks',
+    label: translate('Risk and likelihood'),
+    entries: riskProp (element),
+    tooltip: translate('Make sure you know what you are doing!')
+  };
+
+  return riskGroup;
 }

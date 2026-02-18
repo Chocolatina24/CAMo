@@ -1,7 +1,7 @@
 {
-  "name": "bpmn-js-example-modeler",
+  "name": "bpmn-js-example-properties-panel-extension",
   "version": "0.0.0",
-  "description": "A simple modeler built with bpmn-js",
+  "description": "A properties panel extension example",
   "scripts": {
     "all": "run-s build",
     "build": "webpack --mode production",
@@ -10,14 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/bpmn-js-examples"
+    "url": "https://github.com/bpmn-io/bpmn-js-examples",
+    "directory": "properties-panel-extension"
   },
   "keywords": [
-    "bpmnjs-example"
+    "bpmnjs-example",
+    "bpmn-js-properties-panel"
   ],
   "author": {
-    "name": "Nico Rehwaldt",
-    "url": "https://github.com/nikku"
+    "name": "Patrick Dehn",
+    "url": "https://github.com/pedesen"
   },
   "contributors": [
     {
@@ -32,18 +34,18 @@
     "less": "^4.5.1",
     "less-loader": "^12.3.0",
     "npm-run-all2": "^8.0.4",
-    "raw-loader": "^4.0.0",
+    "raw-loader": "^4.0.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
-    "@bpmn-io/properties-panel": "^3.36.0",
-    "bpmn-js": "^18.10.1",
-    "bpmn-js-create-append-anything": "^1.2.0",
-    "bpmn-js-properties-panel": "^5.48.0",
-    "diagram-js": "^15.1.0",
-    "jquery": "^4.0.0"
+    "@bpmn-io/properties-panel": "^3.35.1",
+    "bpmn-js": "^18.12.0",
+    "bpmn-js-properties-panel": "^5.45.0",
+    "htm": "^3.1.1",
+    "jquery": "^4.0.0",
+    "min-dash": "^5.0.0"
   }
 }

@@ -76,6 +76,33 @@ a:link {
   &.with-diagram .canvas {
     visibility: visible;
   }
+
+    .properties-panel-parent {
+    visibility: hidden;
+  }
+
+  &.with-diagram .properties-panel-parent {
+    visibility: visible;
+  }
+
+  .properties-panel-parent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 260px;
+    z-index: 10;
+    border-left: 1px solid #ccc;
+    background-color: #f9f9f9;
+    overflow: auto;
+    &:empty {
+      display: none;
+    }
+    > .djs-properties-panel {
+      padding-bottom: 70px;
+      min-height:100%;
+    }
+  }
 }
 
 
@@ -83,7 +110,6 @@ a:link {
   position: fixed;
   bottom: 20px;
   left: 20px;
-
   padding: 0;
   margin: 0;
   list-style: none;
@@ -93,10 +119,12 @@ a:link {
     margin-right: 10px;
 
     > a {
-      background: #DDD;
-      border: solid 1px #666;
+      background: #d1d3e0;
+      color :#111;
+      border: solid 1px #979fc1;
       display: inline-block;
       padding: 5px;
+      border-radius: 5px;
     }
   }
 
@@ -109,20 +137,57 @@ a:link {
   }
 }
 
-#js-properties-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 260px;
-  z-index: 10;
-  border-left: 1px solid #ccc;
-  overflow: auto;
-  &:empty {
-    display: none;
+.filter-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 275px;
+  background: white;
+  border: 1px solid #999;
+  border-radius: 4px;
+  z-index: 100;
+
+  .filter-toggle {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border: none;
+    background: #DDD;
+    cursor: pointer;
+    font: 12px sans-serif;
+    border-radius: 5px;
+    text-align: left;
+
+    &:hover {
+      background: #CCC;
+    }
   }
-  > .djs-properties-panel {
-    padding-bottom: 70px;
-    min-height:100%;
+
+  .filter-content {
+    display: none;
+    padding: 10px 12px;
+    border-top: 1px solid #DDD;
+    min-width: 150px;
+
+    &.open {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+      font-size: 12px;
+
+      input {
+        margin-right: 6px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        background: #F5F5F5;
+        padding: 2px 4px;
+        margin: 3px -4px;
+      }
+    }
   }
 }
