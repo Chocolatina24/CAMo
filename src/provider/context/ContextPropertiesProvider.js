@@ -1,7 +1,8 @@
 // Import your custom property entries.
 import rationaleProp from './parts/Rationale';
+import { ListGroup } from '@bpmn-io/properties-panel';
 import { is } from 'bpmn-js/lib/util/ModelUtil';
-import riskProp from "./parts/Risk";
+import riskProp from "./parts/RiskType";
 const LOW_PRIORITY = 500;
 
 
@@ -38,7 +39,7 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
       // Add the "magic" group
       if (is(element, 'bpmn:SequenceFlow')) {
         groups.push(createRationaleGroup(element, translate));
-        groups.push(createRiskGroup(element, translate));
+        groups.push(createRiskGroup(element, injector, translate));
       }
 
       return groups;
@@ -54,7 +55,7 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-ContextPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
+ContextPropertiesProvider.$inject = [ 'propertiesPanel', 'injector', 'translate' ];
 
 // Create the custom group
 function createRationaleGroup(element, translate) {
@@ -70,14 +71,14 @@ function createRationaleGroup(element, translate) {
   return rationaleGroup;
 }
 
-function createRiskGroup(element, translate) {
+function createRiskGroup(element, injector, translate) {
 
   // create a group
   const riskGroup = {
     id: 'risks',
     label: translate('Risk and likelihood'),
-    entries: riskProp (element),
-    tooltip: translate('Make sure you know what you are doing!')
+    component: ListGroup,
+    ...riskProp({element, injector})
   };
 
   return riskGroup;

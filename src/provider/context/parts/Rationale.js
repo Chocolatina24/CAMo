@@ -1,7 +1,7 @@
-import { DropdownButton } from '@bpmn-io/properties-panel';
+import { DropdownButton } from '../../../components/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import './Dropdown.css';
+import '../../../components/Dropdown.css';
 export default function(element) {
 
   return [
@@ -17,6 +17,7 @@ function Rationale(props){
 
   const { element} = props;
   const modeling = useService('modeling');
+  const currentRationale = element.businessObject?.rationale || "Select a rationale";
   const menuItems = [
     {
       entry: "Best practice",
@@ -50,7 +51,7 @@ function Rationale(props){
 
 
    return html`<${DropdownButton}
-    children=${"Explanatory Rationale"}
+    selectedValue=${currentRationale}
     menuItems=${menuItems}
     className=${"my-custom-dropdown"}
   />`;
