@@ -5,6 +5,9 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
 import './style.less';
+import './components/FilterMenu.less';
+import './components/DescriptionEntry.less';
+
 
 import $ from 'jquery';
 import BpmnModeler from 'bpmn-js/lib/Modeler';

@@ -21,7 +21,7 @@ function DescriptionRationale(props){
 function mapRationaleToDescription(rationale) {
   const map = {
         "Best practice": "Best practice description",
-        "Business rule": "Business rule description",
+        "Business rule": "Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.",
         "Law or norm": "Law or norm description",
         "Law of nature": "Law of nature description",
         "Select a rationale": "Select a rationale"
