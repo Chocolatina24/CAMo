@@ -1,4 +1,4 @@
-import { DropdownButton } from '@bpmn-io/properties-panel';
+import { DropdownButton } from '../../../components/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
 import '../../../components/Dropdown.css';
@@ -8,18 +8,18 @@ export default function(element) {
 
   return [
     {
-      id: 'risk_of_change',
+      id: 'risk_type',
       element,
-      component: Risk,
+      component: RiskType,
     }
   ];
 }
 
-function Risk(props){
+function RiskType(props){
 
   const { element} = props;
   const modeling = useService('modeling');
-  const currentRisk = element.businessObject?.risk || "Select a risk type";
+  const currentRiskType = element.businessObject?.risk || "Select a risk type";
   const menuItems = [
     {
       entry: "Data risk",
@@ -60,7 +60,7 @@ function Risk(props){
 
 
    return html`<${DropdownButton}
-    selectedValue=${currentRisk}
+    selectedValue=${currentRiskType}
     menuItems=${menuItems}
     className=${"my-custom-dropdown"}
   />`;

@@ -8,16 +8,16 @@ export default function(element) {
     {
       id: 'explanatory_rationale',
       element,
-      component: Rationale,
+      component: ExplanatoryRationale,
     }
   ];
 }
 
-function Rationale(props){
+function ExplanatoryRationale(props){
 
   const { element} = props;
   const modeling = useService('modeling');
-  const currentRationale = element.businessObject?.rationale || "Select a rationale";
+  const currentExplanatoryRationale = element.businessObject?.rationale || "Select a rationale";
   const menuItems = [
     {
       entry: "Best practice",
@@ -51,7 +51,7 @@ function Rationale(props){
 
 
    return html`<${DropdownButton}
-    selectedValue=${currentRationale}
+    selectedValue=${currentExplanatoryRationale}
     menuItems=${menuItems}
     className=${"my-custom-dropdown"}
   />`;
