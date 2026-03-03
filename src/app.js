@@ -11,9 +11,8 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 
 import {
   BpmnPropertiesPanelModule,
-  BpmnPropertiesProviderModule
 } from 'bpmn-js-properties-panel';
-import contextPropertiesProviderModule from './provider/context';
+import ContextPropertiesProviderModule from './provider/context';
 import contextModdleDescriptor from './descriptors/context';
 
 import {
@@ -21,7 +20,7 @@ import {
 } from 'min-dash';
 
 import diagramXML from '../resources/newDiagram.bpmn';
-
+import { setupFilterMenu, applyFilters } from './components/FilterMenu';
 
 var container = $('#js-drop-zone');
 var canvas = $('#js-canvas');
@@ -30,12 +29,11 @@ var canvas = $('#js-canvas');
 var bpmnModeler = new BpmnModeler({
   container: canvas,
   propertiesPanel: {
-    parent: '#js-properties-panel'
+    parent: '#js-properties-panel',
   },
   additionalModules: [
     BpmnPropertiesPanelModule,
-    BpmnPropertiesProviderModule,
-    contextPropertiesProviderModule
+    ContextPropertiesProviderModule,
   ],
   moddleExtensions: {
     context: contextModdleDescriptor
@@ -128,13 +126,6 @@ $(function() {
   var downloadLink = $('#js-download-diagram');
   var downloadSvgLink = $('#js-download-svg');
 
-  $('.buttons a').click(function(e) {
-    if (!$(this).is('.active')) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  });
-
   function setEncoded(link, name, data) {
     var encodedData = encodeURIComponent(data);
 
@@ -177,21 +168,6 @@ $(function() {
 
   bpmnModeler.on('commandStack.changed', exportArtifacts);
 
-
-  //Filtering
-  const filterToggle = $('#js-filter-toggle');
-  const filterContent = $('#js-filter-content');
-  const filterCheckboxes = $('.filter-checkbox');
-  const canvas = bpmnModeler.get('canvas');
-
-  filterToggle.click(function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    filterContent.toggleClass('open');
-  });
-
-  filterCheckboxes.change(function() {
-    applyFilters();
-  })
+  setupFilterMenu(() => applyFilters(bpmnModeler));
 
 });

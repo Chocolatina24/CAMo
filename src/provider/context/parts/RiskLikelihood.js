@@ -1,7 +1,7 @@
 import { DropdownButton } from '../../../components/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../components/Dropdown.css';
+import '../../../components/Dropdown.less';
 
 
 export default function(element) {
@@ -19,34 +19,34 @@ function RiskLikelihood(props){
 
   const { element} = props;
   const modeling = useService('modeling');
-  const currentRiskLikelihood = element.businessObject?.risk || "Select risk likelihood";
+  const currentRiskLikelihood = element.businessObject?.risk_likelihood || "Select risk likelihood";
   const menuItems = [
      {
       entry: "Very high risk",
       action: () => modeling.updateProperties(element,
      {
-      riskLikelihood: "Very high risk"
+      risk_likelihood: "Very high risk"
     })
     },
     {
       entry: "High risk",
       action: () => modeling.updateProperties(element,
      {
-      riskLikelihood: "High risk"
+      risk_likelihood: "High risk"
     })
     },
     {
       entry: "Moderate risk",
       action: () => modeling.updateProperties(element,
      {
-      riskLikelihood: "Moderate risk"
+      risk_likelihood: "Moderate risk"
     })
     },
     {
       entry: "Low risk",
       action: () => modeling.updateProperties(element,
      {
-      riskLikelihood: "Low risk"
+      risk_likelihood: "Low risk"
     })
     }
   ]

@@ -1,7 +1,7 @@
 import { DropdownButton } from '../../../components/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../components/Dropdown.css';
+import '../../../components/Dropdown.less';
 export default function(element) {
 
   return [
@@ -34,17 +34,17 @@ function ExplanatoryRationale(props){
     })
     },
     {
-      entry: "Norm or Law",
+      entry: "Law or norm",
       action: () => modeling.updateProperties(element,
      {
-      rationale: "Norm or Law"
+      rationale: "Law or norm"
     })
     },
     {
-      entry: "Law of Nature",
+      entry: "Law of nature",
       action: () => modeling.updateProperties(element,
      {
-      rationale: "Law of Nature"
+      rationale: "Law of nature"
     })
     }
   ]

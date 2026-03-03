@@ -1,7 +1,10 @@
 // Import your custom property entries.
-import { ListGroup } from '@bpmn-io/properties-panel';
 import { is } from 'bpmn-js/lib/util/ModelUtil';
-import relationshipContextGroup from './parts/RelationshipContextGroup';
+import explanatoryRationale from './parts/Rationale';
+import riskType from './parts/RiskType';
+import riskLikelihood from './parts/RiskLikelihood';
+import descriptionRationale from './parts/DescriptionRationale';
+import descriptionRisk from './parts/DescriptionRisks';
 const LOW_PRIORITY = 500;
 
 
@@ -37,7 +40,8 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
 
       // Add the "magic" group
       if (is(element, 'bpmn:SequenceFlow')) {
-        groups.push(createRelationshipContextGroup(element, translate));
+        groups.push(explanatoryRationaleGroup(element, translate));
+        groups.push(createRiskTypeGroup(element, translate));
       }
 
       return groups;
@@ -55,17 +59,38 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
 
 ContextPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
 
-// Create the custom group
+// Create the custom groups
 
-function createRelationshipContextGroup(element, translate) {
+function explanatoryRationaleGroup(element, translate) {
 
-  const riskGroup = {
-    id: 'relationship_context_group',
-    label: translate('Relationship context'),
+  const rationaleGroup = {
+    id: 'explanatory_rationale_group',
+    label: translate('Explanatory Rationale'),
+    shouldOpen: true,
     tooltip: translate('Provide additional context for activity relationships'),
-    component: ListGroup,
-    ...relationshipContextGroup({element}, translate)
+    entries: [
+      ...explanatoryRationale(element),
+      ...descriptionRationale(element)
+    ]
+     
   };
 
-  return riskGroup;
+  return rationaleGroup;
+}
+
+function createRiskTypeGroup(element, translate) {
+
+  const riskTypeGroup = {
+    id: 'risk_type_group',
+    label: translate('Risk Type & Likelihood'),
+    tooltip: translate(''),
+    shouldOpen: true,
+    entries: [
+  ...riskType(element),
+  ...riskLikelihood(element),
+  ...descriptionRisk(element)
+]
+  };
+
+  return riskTypeGroup;
 }

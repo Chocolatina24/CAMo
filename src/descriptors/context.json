@@ -1,20 +1,30 @@
 {
-  "name": "Magic",
-  "prefix": "magic",
-  "uri": "http://magic",
+  "name": "Context",
+  "prefix": "context",
+  "uri": "http://context",
   "xml": {
     "tagAlias": "lowerCase"
   },
   "associations": [],
   "types": [
     {
-      "name": "BewitchedStartEvent",
+      "name": "SequenceFlowWithContext",
       "extends": [
-        "bpmn:StartEvent"
+        "bpmn:SequenceFlow"
       ],
       "properties": [
         {
-          "name": "spell",
+          "name": "rationale",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "risk_type",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "risk_likelihood",
           "isAttr": true,
           "type": "String"
         }
