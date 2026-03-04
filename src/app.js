@@ -49,6 +49,25 @@ function createNewDiagram() {
   openDiagram(diagramXML);
 }
 
+// Function to style implicit elements
+function styleImplicitElements() {
+  const elementRegistry = bpmnModeler.get('elementRegistry');
+  const canvas = bpmnModeler.get('canvas');
+
+  elementRegistry.forEach(function(element) {
+    // Only process sequence flows
+    if (element.type === 'bpmn:SequenceFlow') {
+      const isImplicit = element.businessObject?.implicit === true;
+      
+      if (isImplicit) {
+        canvas.addMarker(element, 'highlight-implicit');
+      } else {
+        canvas.removeMarker(element, 'highlight-implicit');
+      }
+    }
+  });
+}
+
 async function openDiagram(xml) {
 
   try {
@@ -58,6 +77,9 @@ async function openDiagram(xml) {
     container
       .removeClass('with-error')
       .addClass('with-diagram');
+    
+    // Apply implicit styling to elements on load
+    styleImplicitElements();
   } catch (err) {
 
     container
@@ -170,6 +192,9 @@ $(function() {
   }, 500);
 
   bpmnModeler.on('commandStack.changed', exportArtifacts);
+
+  // Apply implicit styling whenever elements change
+  bpmnModeler.on('commandStack.changed', styleImplicitElements);
 
   setupFilterMenu(() => applyFilters(bpmnModeler));
 

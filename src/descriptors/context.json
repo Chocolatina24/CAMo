@@ -27,6 +27,11 @@
           "name": "risk_likelihood",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "implicit",
+          "isAttr": true,
+          "type": "Boolean"
         }
       ]
     }
