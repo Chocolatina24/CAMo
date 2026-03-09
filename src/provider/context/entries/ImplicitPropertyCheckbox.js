@@ -21,7 +21,7 @@ function ImplicitProperty(props){
   const translate = useService('translate');
 
   const getValue = () => {
-    // Return the boolean value, default is false if undefined
+    // Return the boolean value, default to false if not set
     return element.businessObject?.implicit === true;
   };
 

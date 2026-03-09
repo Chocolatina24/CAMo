@@ -1,11 +1,11 @@
 // Import your custom property entries.
 import { is } from 'bpmn-js/lib/util/ModelUtil';
-import explanatoryRationale from './parts/Rationale';
-import relationshipType from './parts/ImplicitProperty'
-import riskType from './parts/RiskType';
-import riskLikelihood from './parts/RiskLikelihood';
-import descriptionRationale from './parts/DescriptionRationale';
-import descriptionRisk from './parts/DescriptionRisks';
+import explanatoryRationale from './entries/ExplanatoryRationaleDropdown';
+import relationshipType from './entries/ImplicitPropertyCheckbox'
+import riskType from './entries/RiskTypeDropdown';
+import riskLikelihood from './entries/RiskLikelihoodDropdown';
+import descriptionRationale from './entries/ExplanatoryRationaleDescription';
+import descriptionRisk from './entries/RiskTypeDescription';
 const LOW_PRIORITY = 500;
 
 
@@ -42,7 +42,7 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
       // Add the "magic" group
       if (is(element, 'bpmn:SequenceFlow')) {
         groups.push(explanatoryRationaleGroup(element, translate));
-        groups.push(createRiskTypeGroup(element, translate));
+        groups.push(createRiskGroup(element, translate));
         groups.push(createRelationshipTypeGroup(element, translate));
       }
 
@@ -80,7 +80,7 @@ function explanatoryRationaleGroup(element, translate) {
   return rationaleGroup;
 }
 
-function createRiskTypeGroup(element, translate) {
+function createRiskGroup(element, translate) {
 
   const riskTypeGroup = {
     id: 'risk_type_group',
