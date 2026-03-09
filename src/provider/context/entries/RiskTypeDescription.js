@@ -14,7 +14,7 @@ export default function(element) {
 
 function DescriptionRiskType(props){
     const { element } = props;
-    const riskDescription = mapRiskToDescription(element.businessObject?.risk_type || "Select a risk type");
+    const riskDescription = mapRiskToDescription(element.businessObject?.risk_type);
     
     //Return a text description for each risk type
     return html`<${DescriptionEntry} element=${element} forId="risk_type" value=${riskDescription} />`;

@@ -1,7 +1,7 @@
-import { DropdownButton } from '../../../components/DropdownButton';
+import { DropdownButton } from '../../../components/templates/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../components/Dropdown.less';
+import '../../../style/Dropdown.less';
 export default function(element) {
 
   return [
@@ -68,6 +68,8 @@ function mapRationaleToMenuEntry(explanatoryRationale) {
       return 'Norm or Law';
     case 'law_of_nature':
       return 'Law of nature';
+      case 'not_assigned':
+        return 'Not assigned';
     default:
       return 'Not assigned';
   }

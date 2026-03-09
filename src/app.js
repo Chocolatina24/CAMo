@@ -4,9 +4,9 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
-import './style.less';
-import './components/FilterMenu.less';
-import './components/DescriptionEntry.less';
+import './style/style.less';
+import './style/FilterMenu.less';
+import './style/DescriptionEntry.less';
 
 
 import $ from 'jquery';
@@ -16,7 +16,7 @@ import {
   BpmnPropertiesPanelModule,
 } from 'bpmn-js-properties-panel';
 import ContextPropertiesProviderModule from './provider/context';
-import contextModdleDescriptor from './descriptors/context';
+import contextModdleDescriptor from './descriptors/moddle/context';
 
 import {
   debounce

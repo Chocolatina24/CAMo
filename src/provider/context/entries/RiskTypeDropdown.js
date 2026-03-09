@@ -1,7 +1,7 @@
-import { DropdownButton } from '../../../components/DropdownButton';
+import { DropdownButton } from '../../../components/templates/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../components/Dropdown.less';
+import '../../../style/Dropdown.less';
 
 
 export default function(element) {
@@ -75,6 +75,8 @@ function mapRiskTypeToEntry(riskType) {
       return "Structural risk";
     case "technology_risk":
       return "Technology risk";
+      case 'not_assigned':
+        return 'Not assigned';
     default:
       return "Not assigned";
   }

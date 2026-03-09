@@ -8,7 +8,7 @@
   "associations": [],
   "types": [
     {
-      "name": "SequenceFlowWithContext",
+      "name": "SequenceFlow",
       "extends": [
         "bpmn:SequenceFlow"
       ],

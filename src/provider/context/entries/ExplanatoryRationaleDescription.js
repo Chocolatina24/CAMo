@@ -25,7 +25,7 @@ function mapRationaleToDescription(rationale) {
   const map = {
         "best_practice": "Best practice description",
         "business_rule": "Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.",
-        "law_or_norm": "Law or norm description",
+        "norm_or_law": "Law or norm description",
         "law_of_nature": "Law of nature description",
         "not_assigned": "Select a rationale"
     };
