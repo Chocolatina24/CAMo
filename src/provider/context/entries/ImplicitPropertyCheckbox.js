@@ -31,12 +31,14 @@ function ImplicitProperty(props){
         });
     };
 
-return html`<${CheckboxEntry}
+  //Return a checkbox entry, template reused from properties panel default entries
+  return html`<${CheckboxEntry}
     element=${element}
     id=${id} 
     label=${translate('Implicit relationship')} 
     description=${translate('If checked, this activity relationship is implicit, otherwise explicit.')}
     getValue=${ getValue }
-    setValue=${ setValue } />`;
+    setValue=${ setValue } 
+  />`;
 
 }

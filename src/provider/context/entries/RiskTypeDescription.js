@@ -5,27 +5,35 @@ export default function(element) {
 
   return [
     {
-      id: 'description_risks',
+      id: 'description_risk_type',
       element,
-      component: DescriptionRisks,
+      component: DescriptionRiskType,
     }
   ];
 }
 
-function DescriptionRisks(props){
+function DescriptionRiskType(props){
     const { element } = props;
     const riskDescription = mapRiskToDescription(element.businessObject?.risk_type || "Select a risk type");
-    return html`<${DescriptionEntry} element=${element} forId="risk_type" value=${riskDescription} />`;
+    
+    //Return a text description for each risk type
+    return html`<
+      ${DescriptionEntry} 
+      element=${element} 
+      forId="risk_type" 
+      value=${riskDescription} 
+    />`;
 }
 
+//Helper function to map each risk type to its description
 function mapRiskToDescription(risk) {
   const map = {
-        "Data risk": "Data risk description",
-        "Goal risk": "Goal risk description",
-        "Organizational risk": "Organizational risk description",
-        "Structural risk": "Structural risk description",
-        "Technology risk": "Technology risk description",
-        "Select a risk type": "Select a risk type"
+        "data_risk": "Data risk description",
+        "goal_risk": "Goal risk description",
+        "organizational_risk": "Organizational risk description",
+        "structural_risk": "Structural risk description",
+        "technology_risk": "Technology risk description",
+        "not_assigned": "Select a risk type"
     };
     var defaultValue = "Could not find description";
     return map[risk] || defaultValue;

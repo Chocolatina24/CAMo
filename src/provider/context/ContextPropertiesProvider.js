@@ -1,13 +1,12 @@
-// Import your custom property entries.
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 import explanatoryRationale from './entries/ExplanatoryRationaleDropdown';
 import relationshipType from './entries/ImplicitPropertyCheckbox'
 import riskType from './entries/RiskTypeDropdown';
 import riskLikelihood from './entries/RiskLikelihoodDropdown';
-import descriptionRationale from './entries/ExplanatoryRationaleDescription';
-import descriptionRisk from './entries/RiskTypeDescription';
-const LOW_PRIORITY = 500;
+import descriptionExplanatoryRationale from './entries/ExplanatoryRationaleDescription';
+import descriptionRiskType from './entries/RiskTypeDescription';
 
+const LOW_PRIORITY = 500;
 
 /**
  * A provider with a `#getGroups(element)` method
@@ -39,10 +38,11 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
      */
     return function(groups) {
 
-      // Add the "magic" group
+      // Add the custom groups to the properties provider
+      //The properties only apply to sequence flows because they represent activity relationships visually
       if (is(element, 'bpmn:SequenceFlow')) {
         groups.push(explanatoryRationaleGroup(element, translate));
-        groups.push(createRiskGroup(element, translate));
+        groups.push(createRiskAndLikelihoodGroup(element, translate));
         groups.push(createRelationshipTypeGroup(element, translate));
       }
 
@@ -50,18 +50,14 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
     };
   };
 
-
-  // registration ////////
-
   // Register our custom properties provider.
-  // Use a lower priority to ensure it is loaded after
-  // the basic BPMN properties.
+  // Use a lower priority to ensure it is loaded after the basic BPMN properties.
   propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
 ContextPropertiesProvider.$inject = [ 'propertiesPanel', 'translate' ];
 
-// Create the custom groups
+// Create the custom groups with the appropriate entries
 
 function explanatoryRationaleGroup(element, translate) {
 
@@ -69,10 +65,10 @@ function explanatoryRationaleGroup(element, translate) {
     id: 'explanatory_rationale_group',
     label: translate('Explanatory Rationale'),
     shouldOpen: true,
-    tooltip: translate('Provide additional context for activity relationships'),
+    tooltip: translate('Provide additional context for activity relationships. Select a rationale to view its description.'),
     entries: [
       ...explanatoryRationale(element),
-      ...descriptionRationale(element)
+      ...descriptionExplanatoryRationale(element)
     ]
      
   };
@@ -80,21 +76,21 @@ function explanatoryRationaleGroup(element, translate) {
   return rationaleGroup;
 }
 
-function createRiskGroup(element, translate) {
+function createRiskAndLikelihoodGroup(element, translate) {
 
-  const riskTypeGroup = {
-    id: 'risk_type_group',
+  const riskAndLikelihoodGroup = {
+    id: 'risk_and_likelihood_group',
     label: translate('Risk Type & Likelihood'),
-    tooltip: translate(''),
+    tooltip: translate('Select a risk type and its likelihood to assess the potential impact of a change operation to the relationship.'),
     shouldOpen: true,
     entries: [
-  ...riskType(element),
-  ...riskLikelihood(element),
-  ...descriptionRisk(element)
-]
+      ...riskType(element),
+      ...riskLikelihood(element),
+      ...descriptionRiskType(element)
+    ]
   };
 
-  return riskTypeGroup;
+  return riskAndLikelihoodGroup;
 }
 
 function createRelationshipTypeGroup(element, translate) {
@@ -102,11 +98,11 @@ function createRelationshipTypeGroup(element, translate) {
   const relationshipTypeGroup = {
     id: 'relationship_type_group',
     label: translate('Relationship Type'),
-    tooltip: translate(''),
+    tooltip: translate('Specify if the relationship between activities is implicit or explicit.'),
     shouldOpen: true,
     entries: [
-  ...relationshipType(element)
-]
+      ...relationshipType(element)
+    ]
   };
 
   return relationshipTypeGroup;
