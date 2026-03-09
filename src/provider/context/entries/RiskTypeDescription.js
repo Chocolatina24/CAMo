@@ -17,12 +17,7 @@ function DescriptionRiskType(props){
     const riskDescription = mapRiskToDescription(element.businessObject?.risk_type || "Select a risk type");
     
     //Return a text description for each risk type
-    return html`<
-      ${DescriptionEntry} 
-      element=${element} 
-      forId="risk_type" 
-      value=${riskDescription} 
-    />`;
+    return html`<${DescriptionEntry} element=${element} forId="risk_type" value=${riskDescription} />`;
 }
 
 //Helper function to map each risk type to its description

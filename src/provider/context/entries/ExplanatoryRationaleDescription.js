@@ -17,12 +17,7 @@ function DescriptionExplanatoryRationale(props){
     const rationaleDescription = mapRationaleToDescription(element.businessObject?.rationale);
 
     //Return a text description for each rationale
-    return html`<
-      ${DescriptionEntry} 
-      element=${element}
-      forId="explanatory_rationale"
-      value=${rationaleDescription} 
-    />`;
+    return html`<${DescriptionEntry} element=${element} forId="explanatory_rationale" value=${rationaleDescription} />`;
 }
 
 //Helper function to map each rationale to its description
