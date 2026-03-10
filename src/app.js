@@ -15,15 +15,20 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import {
   BpmnPropertiesPanelModule,
 } from 'bpmn-js-properties-panel';
+
+//Import custom modules and components
 import ContextPropertiesProviderModule from './provider/context';
 import contextModdleDescriptor from './descriptors/moddle/context';
+import ImplicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
+
+import { setupFilterMenu, applyFilters } from './components/FilterMenu';
+
 
 import {
   debounce
 } from 'min-dash';
 
 import diagramXML from '../resources/newDiagram.bpmn';
-import { setupFilterMenu, applyFilters } from './components/FilterMenu';
 
 var container = $('#js-drop-zone');
 var canvas = $('#js-canvas');
@@ -37,6 +42,10 @@ var bpmnModeler = new BpmnModeler({
   additionalModules: [
     BpmnPropertiesPanelModule,
     ContextPropertiesProviderModule,
+    {
+      __init__: [ 'implicitArrowRenderer' ],
+      implicitArrowRenderer: [ 'type', ImplicitArrowRenderer ]
+    }
   ],
   moddleExtensions: {
     context: contextModdleDescriptor

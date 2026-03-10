@@ -42,7 +42,7 @@ export function applyFilters(bpmnModeler) {
     }
 
     const isImplicit = element.businessObject?.implicit === true;
-    const rationale = element.businessObject?.rationale;
+    const rationale = mapRationaleToFilter(element.businessObject?.rationale);
     
     // Determine if THIS element should be shown (reset for each element)
     let shouldShow = false;
@@ -96,4 +96,22 @@ export function applyFilters(bpmnModeler) {
       }
     }
   });
+}
+
+//Helper function to map the filter value to the rationale
+function mapRationaleToFilter(rationale) {
+  switch (rationale) {
+    case 'best_practice':
+      return 'Best practice';
+    case 'business_rule':
+      return 'Business rule';
+    case 'norm_or_law':
+      return 'Norm or Law';
+    case 'law_of_nature':
+      return 'Law of nature';
+    case 'not_assigned':
+      return 'Not assigned';
+    default:
+      return null;
+  }
 }
