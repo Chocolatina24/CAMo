@@ -27,7 +27,8 @@ import './style/ShowWarningsButton.less'
 // Import custom modules
 import ContextPropertiesProviderModule from './provider/context';
 import contextModdleDescriptor from './descriptors/moddle/context';
-import ImplicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
+import implicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
+import customContextPadProvider from './modules/extensions/contextpad/CustomContextPadProvider';
 
 // Import custom components
 import { setupFilterMenu, applyFilters } from './components/FilterMenu';
@@ -48,9 +49,10 @@ var bpmnModeler = new BpmnModeler({
     BpmnPropertiesPanelModule,
     ContextPropertiesProviderModule,
     {
-      __init__: [ 'implicitArrowRenderer' ],
-      implicitArrowRenderer: [ 'type', ImplicitArrowRenderer ]
-    }
+      __init__: ['implicitArrowRenderer', 'customContextPadProvider'],
+      implicitArrowRenderer: ['type', implicitArrowRenderer],
+      customContextPadProvider: ['type', customContextPadProvider]
+   }
   ],
   moddleExtensions: {
     context: contextModdleDescriptor
@@ -62,25 +64,6 @@ container.removeClass('with-diagram');
 function createNewDiagram() {
   openDiagram(diagramXML);
 }
-
-// Function to style implicit elements
-/*function styleImplicitElements() {
-  const elementRegistry = bpmnModeler.get('elementRegistry');
-  const canvas = bpmnModeler.get('canvas');
-
-  elementRegistry.forEach(function(element) {
-    // Only process sequence flows
-    if (element.type === 'bpmn:SequenceFlow') {
-      const isImplicit = element.businessObject?.implicit === true;
-      
-      if (isImplicit) {
-        canvas.addMarker(element, 'highlight-implicit');
-      } else {
-        canvas.removeMarker(element, 'highlight-implicit');
-      }
-    }
-  });
-}*/
 
 async function openDiagram(xml) {
 
@@ -206,9 +189,6 @@ $(function() {
   }, 500);
 
   bpmnModeler.on('commandStack.changed', exportArtifacts);
-
-  // Apply implicit styling whenever elements change
-  //bpmnModeler.on('commandStack.changed', styleImplicitElements);
 
   setupFilterMenu(() => applyFilters(bpmnModeler));
   setupShowWarningsButton(() => applyWarningHighlight(bpmnModeler));
