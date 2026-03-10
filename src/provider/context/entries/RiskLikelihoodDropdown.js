@@ -29,24 +29,24 @@ function RiskLikelihood(props){
   // 'entry' is the displayed text, but 'risk_likelihood' is the actual value of the property saved in the bpmn file
   const menuItems = [
      {
-      entry: "Very high risk",
-      action: () => modeling.updateProperties(element, { risk_likelihood: "very_high_risk"})
+      entry: 'Very high risk',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'very_high_risk'})
     },
     {
-      entry: "High risk",
-      action: () => modeling.updateProperties(element, { risk_likelihood: "high_risk"})
+      entry: 'High risk',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'high_risk'})
     },
     {
-      entry: "Moderate risk",
-      action: () => modeling.updateProperties(element, { risk_likelihood: "moderate_risk"})
+      entry: 'Moderate risk',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'moderate_risk'})
     },
     {
-      entry: "Low risk",
-      action: () => modeling.updateProperties(element, { risk_likelihood: "low_risk"})
+      entry: 'Low risk',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'low_risk'})
     },
     {
-      entry: "Not assigned",
-      action: () => modeling.updateProperties(element, { risk_likelihood: "not_assigned"})
+      entry: 'Not assigned',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'not_assigned'})
     }
   ]
 
@@ -54,7 +54,7 @@ function RiskLikelihood(props){
    return html`<${DropdownButton}
     selectedValue=${mapRiskLikelihoodToEntry(currentRiskLikelihood)}
     menuItems=${menuItems}
-    className=${"custom-dropdown"}
+    className=${'custom-dropdown'}
   />`;
 }
 

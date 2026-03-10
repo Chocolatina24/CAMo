@@ -1,0 +1,49 @@
+.warning-container {
+    display: flex;
+    align-items: center;
+}
+.warning-text {
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+    vertical-align: middle;
+    position: fixed;
+    bottom: 25px;
+    right: 470px;
+}
+.warning-button{
+    position: fixed;
+    bottom: 20px;
+    right: 360px;
+    font: 12px sans-serif;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    z-index: 100;
+}
+.warning-highlight {
+    animation: pulse-red 1s 2;
+    path {
+        stroke: red !important;
+        stroke-width: 2px !important;
+    }
+    marker path {
+        fill: red !important;
+        stroke: red40 !important;
+    }
+}
+@keyframes pulse-red {
+    0% {
+        stroke-width: 2px;
+        opacity: 1;
+    }
+    50% {
+        stroke-width: 3px;
+        opacity: 0.5;
+    }
+    100% {
+        stroke-width: 2px;
+        opacity: 1;
+    }
+}

@@ -4,11 +4,6 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
 
-import './style/style.less';
-import './style/FilterMenu.less';
-import './style/DescriptionEntry.less';
-
-
 import $ from 'jquery';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
@@ -16,19 +11,29 @@ import {
   BpmnPropertiesPanelModule,
 } from 'bpmn-js-properties-panel';
 
-//Import custom modules and components
-import ContextPropertiesProviderModule from './provider/context';
-import contextModdleDescriptor from './descriptors/moddle/context';
-import ImplicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
-
-import { setupFilterMenu, applyFilters } from './components/FilterMenu';
-
-
 import {
   debounce
 } from 'min-dash';
 
+// Import default diagram
 import diagramXML from '../resources/newDiagram.bpmn';
+
+// Import custom styles
+import './style/style.less';
+import './style/FilterMenu.less';
+import './style/DescriptionEntry.less';
+import './style/ShowWarningsButton.less'
+
+// Import custom modules
+import ContextPropertiesProviderModule from './provider/context';
+import contextModdleDescriptor from './descriptors/moddle/context';
+import ImplicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
+
+// Import custom components
+import { setupFilterMenu, applyFilters } from './components/FilterMenu';
+import { applyWarningHighlight, setupShowWarningsButton } from './components/ShowWarningsButton';
+
+
 
 var container = $('#js-drop-zone');
 var canvas = $('#js-canvas');
@@ -59,7 +64,7 @@ function createNewDiagram() {
 }
 
 // Function to style implicit elements
-function styleImplicitElements() {
+/*function styleImplicitElements() {
   const elementRegistry = bpmnModeler.get('elementRegistry');
   const canvas = bpmnModeler.get('canvas');
 
@@ -75,7 +80,7 @@ function styleImplicitElements() {
       }
     }
   });
-}
+}*/
 
 async function openDiagram(xml) {
 
@@ -88,7 +93,7 @@ async function openDiagram(xml) {
       .addClass('with-diagram');
     
     // Apply implicit styling to elements on load
-    styleImplicitElements();
+    //styleImplicitElements();
   } catch (err) {
 
     container
@@ -203,8 +208,9 @@ $(function() {
   bpmnModeler.on('commandStack.changed', exportArtifacts);
 
   // Apply implicit styling whenever elements change
-  bpmnModeler.on('commandStack.changed', styleImplicitElements);
+  //bpmnModeler.on('commandStack.changed', styleImplicitElements);
 
   setupFilterMenu(() => applyFilters(bpmnModeler));
+  setupShowWarningsButton(() => applyWarningHighlight(bpmnModeler));
 
 });

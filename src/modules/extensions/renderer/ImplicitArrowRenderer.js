@@ -1,5 +1,6 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
-
+import { showWarnings } from '../../../components/ShowWarningsButton';
+import { assign } from 'min-dash';
 
 const HIGH_PRIORITY = 1500;
 
@@ -16,33 +17,58 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
 
     drawConnection(visuals, connection) {
 
-        const rationale = connection.businessObject?.rationale;
-
-        let color = 'black'; //default
+        const rationale = connection.businessObject.rationale || 'not_assigned';
+        let color;
         switch (rationale) {
             case 'best_practice':
-                color = 'green';
+                color = '#13DCA7';
                 break;
             case 'business_rule':
-                color = 'blue'; 
+                color = '#8081EF'; 
                 break;
             case 'norm_or_law':
-                color = 'orange';
+                color = '#FF81F1';
                 break;
             case 'law_of_nature':
-                color = 'red';
+                color = '#F5CD68';
                 break;
             case 'not_assigned':
                 color = 'black';
                 break;
-            default: color = 'red';
+            default: color = 'green';
         }
+        // Highlight only if both source and target are activity elements
+        const activityTypes = [
+        'bpmn:Task',
+        'bpmn:SubProcess',
+        'bpmn:CallActivity',
+        'bpmn:ManualTask',
+        'bpmn:UserTask',
+        'bpmn:ServiceTask',
+        'bpmn:ScriptTask',
+        'bpmn:BusinessRuleTask',
+        'bpmn:SendTask',
+        'bpmn:ReceiveTask'
+        ];
+        const isSourceActivity = connection.source && connection.source.businessObject && activityTypes.includes(connection.source.businessObject.$type);
+        const isTargetActivity = connection.target && connection.target.businessObject && activityTypes.includes(connection.target.businessObject.$type);
+        const isRationaleNotAssigned = showWarnings && rationale === 'not_assigned' && isSourceActivity && isTargetActivity;
 
-        //TODO: assign the colors to the arrows
+        const attrs = assign({
+            stroke: isRationaleNotAssigned ? 'red' : color,
+            strokeWidth: isRationaleNotAssigned ? 3 : 2,
+        });
 
-        const path = this.bpmnRenderer.drawConnection(visuals, connection);
+        const path = this.bpmnRenderer.drawConnection(visuals, connection, attrs);
         if(path && path.setAttribute) {
+            // If arrow is implicit make it dashed
             path.setAttribute('stroke-dasharray', connection.businessObject.implicit ? '10,4,2,4' : '');
+            // If rationale is not assigned and warnings are enabled, add a warning highlight
+            if(isRationaleNotAssigned) {
+                path.classList.add('warning-highlight');
+            } else {
+                path.classList.remove('warning-highlight');
+            }
         }
         return path;
     }

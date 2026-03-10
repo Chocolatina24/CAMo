@@ -28,24 +28,24 @@ function ExplanatoryRationale(props){
   // 'entry' is the displayed text, but 'rationale' is the actual value of the property saved in the bpmn file
   const menuItems = [
     {
-      entry: "Best practice",
-      action: () => modeling.updateProperties(element, { rationale: "best_practice"})
+      entry: 'Best practice',
+      action: () => modeling.updateProperties(element, { rationale: 'best_practice'})
     },
     {
-      entry: "Business rule",
-      action: () => modeling.updateProperties(element, { rationale: "business_rule"})
+      entry: 'Business rule',
+      action: () => modeling.updateProperties(element, { rationale: 'business_rule'})
     },
     {
-      entry: "Norm or Law",
-      action: () => modeling.updateProperties(element, { rationale: "norm_or_law"})
+      entry: 'Norm or Law',
+      action: () => modeling.updateProperties(element, { rationale: 'norm_or_law'})
     },
     {
-      entry: "Law of nature",
-      action: () => modeling.updateProperties(element, { rationale: "law_of_nature"})
+      entry: 'Law of nature',
+      action: () => modeling.updateProperties(element, { rationale: 'law_of_nature'})
     },
     {
-      entry: "Not assigned",
-      action: () => modeling.updateProperties(element, { rationale: "not_assigned"})
+      entry: 'Not assigned',
+      action: () => modeling.updateProperties(element, { rationale: 'not_assigned'})
     }
   ]
 

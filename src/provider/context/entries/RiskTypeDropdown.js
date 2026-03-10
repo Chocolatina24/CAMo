@@ -30,54 +30,54 @@ function RiskType(props){
   // 'entry' is the displayed text, but 'risk_type' is the actual value of the property saved in the bpmn file
   const menuItems = [
     {
-      entry: "Data risk",
-      action: () => modeling.updateProperties(element, {risk_type: "data_risk"})
+      entry: 'Data risk',
+      action: () => modeling.updateProperties(element, {risk_type: 'data_risk'})
     },
     {
-      entry: "Goal risk",
-      action: () => modeling.updateProperties(element, {risk_type: "goal_risk"})
+      entry: 'Goal risk',
+      action: () => modeling.updateProperties(element, {risk_type: 'goal_risk'})
     },
     {
-      entry: "Organizational risk",
-      action: () => modeling.updateProperties(element, {risk_type: "organizational_risk"})
+      entry: 'Organizational risk',
+      action: () => modeling.updateProperties(element, {risk_type: 'organizational_risk'})
     },
     {
-      entry: "Structural risk",
-      action: () => modeling.updateProperties(element, {risk_type: "structural_risk"})
+      entry: 'Structural risk',
+      action: () => modeling.updateProperties(element, {risk_type: 'structural_risk'})
     },
     {
-      entry: "Technology risk",
-      action: () => modeling.updateProperties(element, {risk_type: "technology_risk"})
+      entry: 'Technology risk',
+      action: () => modeling.updateProperties(element, {risk_type: 'technology_risk'})
     },
     {
-      entry: "Not assigned",
-      action: () => modeling.updateProperties(element, {risk_type: "not_assigned"})
+      entry: 'Not assigned',
+      action: () => modeling.updateProperties(element, {risk_type: 'not_assigned'})
     }
   ]
   //Return the dropdown button with the selected value and menu items
    return html`<${DropdownButton}
     selectedValue=${mapRiskTypeToEntry(currentRiskType)}
     menuItems=${menuItems}
-    className=${"custom-dropdown"}
+    className=${'custom-dropdown'}
   />`;
 }
 
 //Helper function to display the correct text in the dropdown when a risk type is selected
 function mapRiskTypeToEntry(riskType) {
   switch (riskType){
-    case "data_risk":
-      return "Data risk";
-    case "goal_risk":
-      return "Goal risk";
-    case "organizational_risk":
-      return "Organizational risk";
-    case "structural_risk":
-      return "Structural risk";
-    case "technology_risk":
-      return "Technology risk";
+    case 'data_risk':
+      return 'Data risk';
+    case 'goal_risk':
+      return 'Goal risk';
+    case 'organizational_risk':
+      return 'Organizational risk';
+    case 'structural_risk':
+      return 'Structural risk';
+    case 'technology_risk':
+      return 'Technology risk';
       case 'not_assigned':
         return 'Not assigned';
     default:
-      return "Not assigned";
+      return 'Not assigned';
   }
 }

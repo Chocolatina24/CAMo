@@ -17,18 +17,18 @@ function DescriptionExplanatoryRationale(props){
     const rationaleDescription = mapRationaleToDescription(element.businessObject?.rationale);
 
     //Return a text description for each rationale
-    return html`<${DescriptionEntry} element=${element} forId="explanatory_rationale" value=${rationaleDescription} />`;
+    return html`<${DescriptionEntry} element=${element} forId='explanatory_rationale' value=${rationaleDescription} />`;
 }
 
 //Helper function to map each rationale to its description
 function mapRationaleToDescription(rationale) {
   const map = {
-        "best_practice": "Best practice description",
-        "business_rule": "Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.",
-        "norm_or_law": "Law or norm description",
-        "law_of_nature": "Law of nature description",
-        "not_assigned": "Select a rationale"
+        'best_practice': 'Best practice description',
+        'business_rule': 'Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.',
+        'norm_or_law': 'Law or norm description',
+        'law_of_nature': 'Law of nature description',
+        'not_assigned': 'Select a rationale'
     };
-    var defaultValue = "Could not find description";
+    var defaultValue = 'Could not find description';
     return map[rationale] || defaultValue;
 }

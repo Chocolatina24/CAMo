@@ -37,13 +37,30 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
      * @return {Object[]} modified groups
      */
     return function(groups) {
-
+      
       // Add the custom groups to the properties provider
       //The properties only apply to sequence flows because they represent activity relationships visually
       if (is(element, 'bpmn:SequenceFlow')) {
-        groups.push(explanatoryRationaleGroup(element, translate));
-        groups.push(createRiskAndLikelihoodGroup(element, translate));
-        groups.push(createRelationshipTypeGroup(element, translate));
+        const activityTypes = [
+          'bpmn:Task',
+          'bpmn:SubProcess',
+          'bpmn:CallActivity',
+          'bpmn:ManualTask',
+          'bpmn:UserTask',
+          'bpmn:ServiceTask',
+          'bpmn:ScriptTask',
+          'bpmn:BusinessRuleTask',
+          'bpmn:SendTask',
+          'bpmn:ReceiveTask'
+        ];
+        const isSourceActivity = element.source && element.source.businessObject && activityTypes.includes(element.source.businessObject.$type);
+        const isTargetActivity = element.target && element.target.businessObject && activityTypes.includes(element.target.businessObject.$type);
+        const isActivityRelationship = isSourceActivity && isTargetActivity;
+        if(isActivityRelationship) {
+          groups.push(explanatoryRationaleGroup(element, translate));
+          groups.push(createRiskAndLikelihoodGroup(element, translate));
+          groups.push(createRelationshipTypeGroup(element, translate));
+        }
       }
 
       return groups;
