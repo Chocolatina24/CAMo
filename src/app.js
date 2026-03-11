@@ -51,7 +51,7 @@ var bpmnModeler = new BpmnModeler({
     {
       __init__: ['implicitArrowRenderer', 'customContextPadProvider'],
       implicitArrowRenderer: ['type', implicitArrowRenderer],
-      customContextPadProvider: ['type', customContextPadProvider]
+      customContextPadProvider: ['type', customContextPadProvider],
    }
   ],
   moddleExtensions: {

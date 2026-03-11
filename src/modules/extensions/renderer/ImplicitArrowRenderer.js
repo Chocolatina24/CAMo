@@ -1,6 +1,8 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { showWarnings } from '../../../components/ShowWarningsButton';
 import { assign } from 'min-dash';
+import { useService } from 'bpmn-js-properties-panel';
+
 
 const HIGH_PRIORITY = 1500;
 
@@ -16,8 +18,10 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
     }
 
     drawConnection(visuals, connection) {
+        //Handle unassigned values
+        const rationale = connection.businessObject?.rationale || 'not_assigned';
+        const isImplicit = connection.businessObject?.implicit || false;
 
-        const rationale = connection.businessObject.rationale || 'not_assigned';
         let color;
         switch (rationale) {
             case 'best_practice':
@@ -35,7 +39,7 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
             case 'not_assigned':
                 color = 'black';
                 break;
-            default: color = 'green';
+            default: color = 'black';
         }
         // Highlight only if both source and target are activity elements
         const activityTypes = [
@@ -62,7 +66,7 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
         const path = this.bpmnRenderer.drawConnection(visuals, connection, attrs);
         if(path && path.setAttribute) {
             // If arrow is implicit make it dashed
-            path.setAttribute('stroke-dasharray', connection.businessObject.implicit ? '10,4,2,4' : '');
+            path.setAttribute('stroke-dasharray', isImplicit ? '10,4,2,4' : '');
             // If rationale is not assigned and warnings are enabled, add a warning highlight
             if(isRationaleNotAssigned) {
                 path.classList.add('warning-highlight');
