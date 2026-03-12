@@ -27,8 +27,8 @@ function mapRationaleToDescription(rationale) {
         'business_rule': 'Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.',
         'norm_or_law': 'Law or norm description',
         'law_of_nature': 'Law of nature description',
-        'not_assigned': 'Select a rationale'
+        'not_specified': 'The rationale is not specified'
     };
-    var defaultValue = 'Could not find description';
+    var defaultValue = 'Select a rationale';
     return map[rationale] || defaultValue;
 }

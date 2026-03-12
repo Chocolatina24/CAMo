@@ -109,7 +109,7 @@ function mapRationaleToFilter(rationale) {
       return 'Norm or Law';
     case 'law_of_nature':
       return 'Law of nature';
-    case 'not_assigned':
+    case 'not_specified':
       return 'Not assigned';
     default:
       return null;

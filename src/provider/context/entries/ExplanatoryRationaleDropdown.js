@@ -18,12 +18,12 @@ function ExplanatoryRationale(props){
   const { element} = props;
   const modeling = useService('modeling');
 
-  //If a rationale has not been assigned yet, default to 'not_assigned'
-  if(!element.businessObject.rationale){
-    modeling.updateProperties(element, { rationale: 'not_assigned'});
-  }
+  //If a rationale has not been assigned yet, default to 'not_specified'
+  /*if(!element.businessObject.rationale){
+    modeling.updateProperties(element, { rationale: 'not_specified'});
+  }*/
   //Get the currently assigned rationale
-  const currentExplanatoryRationale = element.businessObject?.rationale;
+  const currentExplanatoryRationale = element.businessObject?.rationale || 'Select a rationale';
   //Define the items for the dropdown menu
   // 'entry' is the displayed text, but 'rationale' is the actual value of the property saved in the bpmn file
   const menuItems = [
@@ -44,8 +44,8 @@ function ExplanatoryRationale(props){
       action: () => modeling.updateProperties(element, { rationale: 'law_of_nature'})
     },
     {
-      entry: 'Not assigned',
-      action: () => modeling.updateProperties(element, { rationale: 'not_assigned'})
+      entry: 'Not specified',
+      action: () => modeling.updateProperties(element, { rationale: 'not_specified'})
     }
   ]
 
@@ -68,9 +68,9 @@ function mapRationaleToMenuEntry(explanatoryRationale) {
       return 'Norm or Law';
     case 'law_of_nature':
       return 'Law of nature';
-      case 'not_assigned':
-        return 'Not assigned';
+      case 'not_specified':
+        return 'Not specified';
     default:
-      return 'Not assigned';
+      return 'Select a rationale';
   }
 }

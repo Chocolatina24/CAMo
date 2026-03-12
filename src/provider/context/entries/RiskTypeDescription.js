@@ -28,8 +28,8 @@ function mapRiskToDescription(risk) {
         'organizational_risk': 'Organizational risk description',
         'structural_risk': 'Structural risk description',
         'technology_risk': 'Technology risk description',
-        'not_assigned': 'Select a risk type'
+        'not_specified': 'The risk type is not specified'
     };
-    var defaultValue = 'Could not find description';
+    var defaultValue = 'Select a risk type';
     return map[risk] || defaultValue;
 }

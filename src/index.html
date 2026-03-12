@@ -25,40 +25,44 @@
 
     <div class="canvas" id="js-canvas"></div>
     <div class="properties-panel-parent" id="js-properties-panel"></div>
+
+    <div class= "all-buttons-parent" id="all-buttons">
+      <ul class="buttons-left">
+        <li>
+          <a id="js-download-diagram" href title="Download BPMN diagram">
+            BPMN diagram
+          </a>
+        </li>
+
+        <li>
+          <a id="js-download-svg" href title="Download as SVG image">
+            SVG image
+          </a>
+        </li>
+      </ul>
+
+      <ul class="buttons-right">
+        <li>
+          <div class="warning-container">
+            <span id="js-warning-text" class="warning-text">Warning: you have relationships with unassigned rationale</span>
+            <button id="js-warning-button" class="warning-button">Hide warnings</button>
+          </div>
+        </li>
+
+        <li>
+          <div class="filter-menu">
+            <button id="js-filter-toggle" class="filter-toggle">Filters</button>
+              <div class="filter-content" id="js-filter-content">
+                <label><input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
+                <label><input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice </label>
+                <label><input type="checkbox" class="filter-checkbox" value="Business rule" checked> Show Business Rule </label>
+                <label><input type="checkbox" class="filter-checkbox" value="Law or norm" checked> Show Law or Norm </label>
+                <label><input type="checkbox" class="filter-checkbox" value="Law of nature" checked> Show Law of Nature </label>
+              </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <ul class="buttons">
-    <li>
-      download
-    </li>
-    <li>
-      <a id="js-download-diagram" href title="download BPMN diagram">
-        BPMN diagram
-      </a>
-    </li>
-    <li>
-      <a id="js-download-svg" href title="download as SVG image">
-        SVG image
-      </a>
-    </li>
-  </ul>
-
-  <div class="filter-menu">
-    <button id="js-filter-toggle" class="filter-toggle">Filters</button>
-      <div class="filter-content" id="js-filter-content">
-        <label><input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
-        <label><input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice </label>
-        <label><input type="checkbox" class="filter-checkbox" value="Business rule" checked> Show Business Rule </label>
-        <label><input type="checkbox" class="filter-checkbox" value="Law or norm" checked> Show Law or Norm </label>
-        <label><input type="checkbox" class="filter-checkbox" value="Law of nature" checked> Show Law of Nature </label>
-
-      </div>
-  </div>
-
-  <div class="warning-container">
-    <button id="js-warning-button" class="warning-button">Hide warnings</button>
-    <span id="js-warning-text" class="warning-text">Warning: you have relationships with unassigned rationale</span>
-  </div>
-
   <script src="app.js"></script>
 </html>

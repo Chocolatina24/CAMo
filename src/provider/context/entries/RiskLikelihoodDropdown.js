@@ -19,12 +19,14 @@ function RiskLikelihood(props){
 
   const { element} = props;
   const modeling = useService('modeling');
-  //If a risk likelihood has not been assigned yet, default to 'not_assigned'
-  if(!element.businessObject.risk_likelihood) { 
-    modeling.updateProperties(element, { risk_likelihood: 'not_assigned'});
-  }
+
+      //If a risk likelihood has not been assigned yet, default to 'not_specified'
+  /*if(!element.businessObject.risk_likelihood) { 
+    modeling.updateProperties(element, { risk_likelihood: 'not_specified'});
+  }*/
+
   //Get the currently assigned risk likelihood
-  const currentRiskLikelihood = element.businessObject?.risk_likelihood;
+  const currentRiskLikelihood = element.businessObject?.risk_likelihood || 'Select a risk likelihood';
   //Define the items for the dropdown menu
   // 'entry' is the displayed text, but 'risk_likelihood' is the actual value of the property saved in the bpmn file
   const menuItems = [
@@ -45,8 +47,8 @@ function RiskLikelihood(props){
       action: () => modeling.updateProperties(element, { risk_likelihood: 'low_risk'})
     },
     {
-      entry: 'Not assigned',
-      action: () => modeling.updateProperties(element, { risk_likelihood: 'not_assigned'})
+      entry: 'Not specified',
+      action: () => modeling.updateProperties(element, { risk_likelihood: 'not_specified'})
     }
   ]
 
@@ -69,9 +71,9 @@ function mapRiskLikelihoodToEntry(riskLikelihood) {
       return 'Moderate risk';
     case 'low_risk':
       return 'Low risk';
-      case 'not_assigned':
-        return 'Not assigned';
+      case 'not_specified':
+        return 'Not specified';
     default:
-      return 'Not assigned';
+      return 'Select the risk likelihood';
   }
 }

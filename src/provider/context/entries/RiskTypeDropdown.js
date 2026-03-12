@@ -20,12 +20,12 @@ function RiskType(props){
   const { element} = props;
   const modeling = useService('modeling');
 
-    //If a risk type has not been assigned yet, default to 'not_assigned'
-  if(!element.businessObject.risk_type) {
-    modeling.updateProperties(element, { risk_type: 'not_assigned'});
-  }
+    //If a risk type has not been assigned yet, default to 'not_specified'
+  /*if(!element.businessObject.risk_type) {
+    modeling.updateProperties(element, { risk_type: 'not_specified'});
+  }*/
   //Get the currently assigned risk type
-  const currentRiskType = element.businessObject?.risk_type;
+  const currentRiskType = element.businessObject?.risk_type || 'Select a risk type';
   //Define the items for the dropdown menu
   // 'entry' is the displayed text, but 'risk_type' is the actual value of the property saved in the bpmn file
   const menuItems = [
@@ -50,8 +50,8 @@ function RiskType(props){
       action: () => modeling.updateProperties(element, {risk_type: 'technology_risk'})
     },
     {
-      entry: 'Not assigned',
-      action: () => modeling.updateProperties(element, {risk_type: 'not_assigned'})
+      entry: 'Not specified',
+      action: () => modeling.updateProperties(element, {risk_type: 'not_specified'})
     }
   ]
   //Return the dropdown button with the selected value and menu items
@@ -75,9 +75,9 @@ function mapRiskTypeToEntry(riskType) {
       return 'Structural risk';
     case 'technology_risk':
       return 'Technology risk';
-      case 'not_assigned':
-        return 'Not assigned';
+      case 'not_specified':
+        return 'Not specified';
     default:
-      return 'Not assigned';
+      return 'Select a risk type';
   }
 }

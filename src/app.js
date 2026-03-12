@@ -193,4 +193,33 @@ $(function() {
   setupFilterMenu(() => applyFilters(bpmnModeler));
   setupShowWarningsButton(() => applyWarningHighlight(bpmnModeler));
 
+
+  const activityTypes = [
+        'bpmn:Task',
+        'bpmn:SubProcess',
+        'bpmn:CallActivity',
+        'bpmn:ManualTask',
+        'bpmn:UserTask',
+        'bpmn:ServiceTask',
+        'bpmn:ScriptTask',
+        'bpmn:BusinessRuleTask',
+        'bpmn:SendTask',
+        'bpmn:ReceiveTask'
+        ];
+
+  // Hide properties panel unless a sequence flow that connects two activities is selected
+  bpmnModeler.on('selection.changed', function(e) {
+    const selected = e.newSelection && e.newSelection[0];
+    const panel = $('#js-properties-panel');
+    const container = $('#js-drop-zone');
+    const isSourceActivity = selected && selected.source && selected.source.businessObject && activityTypes.includes(selected.source.businessObject.$type);
+    const isTargetActivity = selected && selected.target && selected.target.businessObject && activityTypes.includes(selected.target.businessObject.$type);
+    if (selected && selected.type === 'bpmn:SequenceFlow' && isSourceActivity && isTargetActivity) {
+      panel.css('visibility', 'visible');
+      container.removeClass('without-properties-panel');
+    } else {
+      panel.css('visibility', 'hidden');
+      container.addClass('without-properties-panel');
+    }
+  });
 });

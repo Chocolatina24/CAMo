@@ -19,7 +19,7 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
 
     drawConnection(visuals, connection) {
         //Handle unassigned values
-        const rationale = connection.businessObject?.rationale || 'not_assigned';
+        const rationale = connection.businessObject?.rationale || 'not_specified';
         const isImplicit = connection.businessObject?.implicit || false;
 
         let color;
@@ -36,7 +36,7 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
             case 'law_of_nature':
                 color = '#F5CD68';
                 break;
-            case 'not_assigned':
+            case 'not_specified':
                 color = 'black';
                 break;
             default: color = 'black';
@@ -56,7 +56,7 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
         ];
         const isSourceActivity = connection.source && connection.source.businessObject && activityTypes.includes(connection.source.businessObject.$type);
         const isTargetActivity = connection.target && connection.target.businessObject && activityTypes.includes(connection.target.businessObject.$type);
-        const isRationaleNotAssigned = showWarnings && rationale === 'not_assigned' && isSourceActivity && isTargetActivity;
+        const isRationaleNotAssigned = showWarnings && rationale === 'not_specified' && isSourceActivity && isTargetActivity;
 
         const attrs = assign({
             stroke: isRationaleNotAssigned ? 'red' : color,

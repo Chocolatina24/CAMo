@@ -1,23 +1,23 @@
 
 .filter-menu {
-  position: fixed;
-  bottom: 20px;
-  right: 275px;
   background: white;
-  border: 1px solid #999;
-  border-radius: 4px;
+  border-radius: 5px;
   z-index: 100;
 
   .filter-toggle {
-    display: block;
+    background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+    display: inline-block;
     width: 100%;
     padding: 5px 10px;
-    border: none;
-    background: #DDD;
     cursor: pointer;
-    font: 12px sans-serif;
-    border-radius: 5px;
     text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    color: #063a6e;
+    font-size: 14px;
 
     &:hover {
       background: #CCC;
@@ -26,8 +26,12 @@
 
   .filter-content {
     display: none;
-    padding: 10px 12px;
-    border-top: 1px solid #DDD;
+    border-radius: 0 0 5px 5px;
+    padding: 5px 4px;
+    border-top: none;
+    border-bottom: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
     min-width: 150px;
 
     &.open {
@@ -36,7 +40,8 @@
 
     label {
       display: block;
-      margin: 5px 0;
+      padding: 3px;
+      padding-right: 4px;
       cursor: pointer;
       font-size: 12px;
 
