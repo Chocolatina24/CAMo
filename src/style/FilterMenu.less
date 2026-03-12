@@ -6,28 +6,36 @@
 
   .filter-toggle {
     background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);
-    display: inline-block;
     border-radius: 5px;
     border: 1px solid #DDD;
-    display: inline-block;
-    width: 100%;
+    display: block;
     padding: 5px 10px;
+    margin: 10px auto 6px auto;
     cursor: pointer;
     text-align: left;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 400;
     color: #063a6e;
-    font-size: 14px;
 
     &:hover {
       background: #CCC;
     }
   }
 
+    #toggle-checkboxes{
+      font-size: 12px;
+      padding: 3px 6px;
+      font-weight: 500;
+    }
+    #js-filter-toggle {
+      width: 100%;
+      font-size: 14px;
+    }
+
   .filter-content {
     display: none;
     border-radius: 0 0 5px 5px;
-    padding: 5px 4px;
+    padding: 6px 9px;
     border-top: none;
     border-bottom: 1px solid #DDD;
     border-left: 1px solid #DDD;
@@ -40,8 +48,7 @@
 
     label {
       display: block;
-      padding: 3px;
-      padding-right: 4px;
+      margin-bottom: 3px;
       cursor: pointer;
       font-size: 12px;
 
@@ -52,8 +59,6 @@
 
       &:hover {
         background: #F5F5F5;
-        padding: 2px 4px;
-        margin: 3px -4px;
       }
     }
   }
