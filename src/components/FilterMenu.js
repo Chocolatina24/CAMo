@@ -27,7 +27,7 @@ export function applyFilters(bpmnModeler) {
   // Get BPMN.js services
   const elementRegistry = bpmnModeler.get('elementRegistry');
   const canvas = bpmnModeler.get('canvas');
-  const allFilters = ['Best practice', 'Business rule', 'Law or norm', 'Law of nature', 'Implicit'];
+  const allFilters = ['Best practice', 'Business rule', 'Law or norm', 'Law of nature', 'Implicit', 'All'];
 
   // Filter sequence flows based on their rationale 
   elementRegistry.forEach(function(element) {
@@ -41,7 +41,7 @@ export function applyFilters(bpmnModeler) {
       return;
     }
 
-    const isImplicit = element.businessObject?.implicit === true;
+    const isImplicit = element.businessObject?.implicit === undefined ? false : element.businessObject.implicit;
     const rationale = mapRationaleToFilter(element.businessObject?.rationale);
     
     // Determine if THIS element should be shown (reset for each element)
@@ -50,7 +50,7 @@ export function applyFilters(bpmnModeler) {
     // Special handling for implicit elements
     if (isImplicit) {
       // Implicit elements REQUIRE the Implicit filter to be checked
-      if (!checkedFilters.includes('Implicit')) {
+      if (!checkedFilters.includes('Implicit') && isImplicit) {
         shouldShow = false; // Always hide implicit elements if Implicit filter is unchecked
       } else {
         // Implicit filter is checked, now check other conditions
@@ -81,10 +81,10 @@ export function applyFilters(bpmnModeler) {
       // Handle implicit elements
       if (shouldShow) {
         canvas.removeMarker(element, 'filtered-hidden-implicit');
-        canvas.addMarker(element, 'highlight-implicit');
+        //canvas.addMarker(element, 'highlight-implicit');
       } else {
         canvas.addMarker(element, 'filtered-hidden-implicit');
-        canvas.removeMarker(element, 'highlight-implicit');
+        //canvas.removeMarker(element, 'highlight-implicit');
 
       }
     } else {
@@ -106,12 +106,12 @@ function mapRationaleToFilter(rationale) {
     case 'business_rule':
       return 'Business rule';
     case 'norm_or_law':
-      return 'Norm or Law';
+      return 'Norm or law';
     case 'law_of_nature':
       return 'Law of nature';
     case 'not_specified':
       return 'Not assigned';
     default:
-      return null;
+      return 'Not assigned';
   }
 }
