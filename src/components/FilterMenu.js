@@ -5,6 +5,17 @@ export function setupFilterMenu(applyFilters) {
   const filterToggle = $('#js-filter-toggle');
   const filterContent = $('#js-filter-content');
   const filterCheckboxes = $('.filter-checkbox');
+  const toggleAllCheckboxesButton = $('#js-toggle-checkboxes');
+  toggleAllCheckboxesButton.text('Hide All');
+
+
+  // Toggle all checkboxes when "Show All" button is clicked
+  toggleAllCheckboxesButton.click(function() {
+    const allChecked = filterCheckboxes.length === filterCheckboxes.filter(':checked').length;
+    filterCheckboxes.prop('checked', !allChecked);
+    toggleAllCheckboxesButton.text(allChecked ? 'Show All' : 'Hide All');
+    applyFilters();
+  });
 
   filterToggle.click(function(e){
     e.preventDefault();
