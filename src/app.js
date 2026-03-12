@@ -32,7 +32,7 @@ import customContextPadProvider from './modules/extensions/contextpad/CustomCont
 
 // Import custom components
 import { setupFilterMenu, applyFilters } from './components/FilterMenu';
-import { applyWarningHighlight, setupShowWarningsButton } from './components/ShowWarningsButton';
+import { applyWarningHighlight, setupShowWarningsButton, showWarningText } from './components/ShowWarningsButton';
 
 
 
@@ -188,12 +188,18 @@ $(function() {
     }
   }, 500);
 
-  bpmnModeler.on('commandStack.changed', exportArtifacts);
+  // Re-apply warning highlights and update warning text after each command to ensure they stay up to date
+  bpmnModeler.on('commandStack.changed', function() {
+    exportArtifacts();
+    applyWarningHighlight(bpmnModeler);
+    showWarningText(bpmnModeler);
+  });
 
+ //Initial setup of filter menu and warning button
   setupFilterMenu(() => applyFilters(bpmnModeler));
-  setupShowWarningsButton(() => applyWarningHighlight(bpmnModeler));
+  setupShowWarningsButton(() => applyWarningHighlight(bpmnModeler), () => showWarningText(bpmnModeler));
 
-
+//Helper to determine if an element is an activity (we only want to focus on arrows that connect activities)
   const activityTypes = [
         'bpmn:Task',
         'bpmn:SubProcess',
