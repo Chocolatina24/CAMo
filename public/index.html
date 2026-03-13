@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>bpmn-js-properties-panel extension demo</title>
+  <title>CAMo</title>
 </head>
 <body>
   <div class="content" id="js-drop-zone">
 
-    <div class="message intro">
+    <div class="message">
+      <div class="title">
+        CAMo - Context-Aware Modeler for BPMN
+      </div>
       <div class="note">
         Drop BPMN diagram from your desktop or <a id="js-create-diagram" href>create a new diagram</a> to get started.
       </div>
@@ -25,35 +28,73 @@
 
     <div class="canvas" id="js-canvas"></div>
     <div class="properties-panel-parent" id="js-properties-panel"></div>
+
+    <div class= "all-buttons-parent" id="all-buttons">
+      <ul class="buttons-left">
+        <li>
+          <button id="js-create-new-diagram-button" class="new-diagram-button">
+            Create new diagram
+          </button>
+          <div id="confirm-window" class="confirmation-window" style="display:none;">
+          <div class="confirmation-window-content">
+          <p>Your progress will be deleted. Are you sure you want to create a new diagram?</p>
+          <button id="confirm-create-diagram" class="new-diagram-button">Yes, create new diagram</button>
+          <button id="cancel-create-diagram" class="new-diagram-button" style="margin:8px;">Cancel</button>
+        </li>
+        <li>
+          <a id="js-download-diagram" href title="Export BPMN diagram">
+            Export BPMN diagram
+          </a>
+        </li>
+
+        <li>
+          <a id="js-download-svg" href title="Export as SVG image">
+            Export SVG image
+          </a>
+        </li>
+      </ul>
+
+      <ul class="buttons-right">
+        <li>
+          <div class="warning-container">
+            <span id="js-warning-text" class="warning-text">Warning: you have relationships with unassigned rationale</span>
+            <button id="js-warning-button" class="warning-button">Hide warnings</button>
+          </div>
+        </li>
+
+        <li>
+          <div class="filter-menu">
+            <button id="js-filter-toggle" class="filter-toggle">Filters</button>
+              <div class="filter-content" id="js-filter-content">
+                <label>
+                  <span class="implicit-icon"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
+                <label>
+                  <span class="rationale-color rationale-color-best-practice"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice
+                </label>
+                <label>
+                  <span class="rationale-color rationale-color-business-rule"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Business rule" checked> Show Business Rule
+                </label>
+                <label>
+                  <span class="rationale-color rationale-color-norm-or-law"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Norm or law" checked> Show Norm or Law
+                </label>
+                <label>
+                  <span class="rationale-color rationale-color-law-of-nature"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Law of nature" checked> Show Law of Nature
+                </label>
+                <label>
+                  <span class="rationale-color rationale-color-not-assigned"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Not assigned" checked> Show Not Assigned
+                </label>
+                <button id="js-toggle-checkboxes" class="filter-toggle"> Hide All </button>
+              </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-
-  <ul class="buttons">
-    <li>
-      download
-    </li>
-    <li>
-      <a id="js-download-diagram" href title="download BPMN diagram">
-        BPMN diagram
-      </a>
-    </li>
-    <li>
-      <a id="js-download-svg" href title="download as SVG image">
-        SVG image
-      </a>
-    </li>
-  </ul>
-
-  <div class="filter-menu">
-    <button id="js-filter-toggle" class="filter-toggle">Filters</button>
-      <div class="filter-content" id="js-filter-content">
-        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder1 </label>
-        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder2 </label>
-        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder3 </label>
-        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder4 </label>
-        <label><input type="checkbox" class="filter-checkbox" value="" checked> Placeholder5 </label>
-
-      </div>
-  </div>
-
   <script src="app.js"></script>
 </html>

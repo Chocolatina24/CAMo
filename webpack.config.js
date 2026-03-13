@@ -45,7 +45,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/index.html', to: '.' }
+        { from: 'src/index.html', to: '.' },
+        { from: 'src/resources', to: 'resources' }
       ]
     })
   ]
