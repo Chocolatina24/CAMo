@@ -23,12 +23,12 @@ function DescriptionExplanatoryRationale(props){
 //Helper function to map each rationale to its description
 function mapRationaleToDescription(rationale) {
   const map = {
-        'best_practice': 'Best practice description',
+        'best_practice': 'A best practice is an approach that has been proven to be effective and is commonly accepted as a standard.',
         'business_rule': 'Business rules are defined internally within the organization. Business rules include strategically motivated regulations and relate to the overall goal of the business.',
-        'norm_or_law': 'Law or norm description',
-        'law_of_nature': 'Law of nature description',
-        'not_specified': 'The rationale is not specified'
+        'norm_or_law': 'Norms and laws are defined by external authorities and not following them can lead to legal consequences.',
+        'law_of_nature': 'Laws of nature are impossible to violate and trying to change them can break the process or make no sense at all.',
+        'not_specified': 'The rationale is not specified.'
     };
-    var defaultValue = 'Select a rationale';
+    var defaultValue = 'Select a rationale to view its description.';
     return map[rationale] || defaultValue;
 }
