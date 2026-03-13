@@ -22,7 +22,8 @@ import diagramXML from '../resources/newDiagram.bpmn';
 import './style/style.less';
 import './style/FilterMenu.less';
 import './style/DescriptionEntry.less';
-import './style/ShowWarningsButton.less'
+import './style/ShowWarningsButton.less';
+import './style/CreateNewDiagramConfirm.less';
 
 // Import custom modules
 import ContextPropertiesProviderModule from './provider/context';
@@ -75,8 +76,6 @@ async function openDiagram(xml) {
       .removeClass('with-error')
       .addClass('with-diagram');
     
-    // Apply implicit styling to elements on load
-    //styleImplicitElements();
   } catch (err) {
 
     container
@@ -143,6 +142,24 @@ $(function() {
     e.preventDefault();
 
     createNewDiagram();
+  });
+
+  $('#js-create-new-diagram-button').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $('#confirm-window').show();
+  });
+
+  $('#confirm-create-diagram').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    createNewDiagram();
+    $('#confirm-window').hide();
+  });
+  $('#cancel-create-diagram').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $('#confirm-window').hide();
   });
 
   var downloadLink = $('#js-download-diagram');

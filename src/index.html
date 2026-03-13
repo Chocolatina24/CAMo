@@ -29,9 +29,14 @@
     <div class= "all-buttons-parent" id="all-buttons">
       <ul class="buttons-left">
         <li>
-          <a id="js-create-diagram" href title="Create new BPMN diagram">
+          <button id="js-create-new-diagram-button" class="new-diagram-button">
             Create new diagram
-          </a>
+          </button>
+          <div id="confirm-window" class="confirmation-window" style="display:none;">
+          <div class="confirmation-window-content">
+          <p>Your progress will be deleted. Are you sure you want to create a new diagram?</p>
+          <button id="confirm-create-diagram" class="new-diagram-button">Yes, create new diagram</button>
+          <button id="cancel-create-diagram" class="new-diagram-button" style="margin:8px;">Cancel</button>
         </li>
         <li>
           <a id="js-download-diagram" href title="Export BPMN diagram">
@@ -58,7 +63,9 @@
           <div class="filter-menu">
             <button id="js-filter-toggle" class="filter-toggle">Filters</button>
               <div class="filter-content" id="js-filter-content">
-                <label><input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
+                <label>
+                  <span class="implicit-icon"></span>
+                  <input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
                 <label>
                   <span class="rationale-color rationale-color-best-practice"></span>
                   <input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice
