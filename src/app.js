@@ -26,10 +26,10 @@ import './style/ShowWarningsButton.less';
 import './style/CreateNewDiagramConfirm.less';
 
 // Import custom modules
-import ContextPropertiesProviderModule from './provider/context';
+import contextPropertiesProviderModule from './provider/context';
 import contextModdleDescriptor from './descriptors/moddle/context';
-import implicitArrowRenderer from './modules/extensions/renderer/ImplicitArrowRenderer';
-import customContextPadProvider from './modules/extensions/contextpad/CustomContextPadProvider';
+import implicitArrowRenderer from './modules/extensions/renderer';
+import customContextPadProvider from './modules/extensions/contextpad';
 
 // Import custom components
 import { setupFilterMenu, applyFilters } from './components/FilterMenu';
@@ -48,12 +48,9 @@ var bpmnModeler = new BpmnModeler({
   },
   additionalModules: [
     BpmnPropertiesPanelModule,
-    ContextPropertiesProviderModule,
-    {
-      __init__: ['implicitArrowRenderer', 'customContextPadProvider'],
-      implicitArrowRenderer: ['type', implicitArrowRenderer],
-      customContextPadProvider: ['type', customContextPadProvider],
-   }
+    contextPropertiesProviderModule,
+    implicitArrowRenderer,
+    customContextPadProvider
   ],
   moddleExtensions: {
     context: contextModdleDescriptor
