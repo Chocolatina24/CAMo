@@ -1,7 +1,6 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { showWarnings } from '../../../components/ShowWarningsButton';
 import { assign } from 'min-dash';
-import { useService } from 'bpmn-js-properties-panel';
 
 
 const HIGH_PRIORITY = 1500;
@@ -78,3 +77,4 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
     }
 }
 
+ImplicitArrowRenderer.$inject = [ 'eventBus', 'bpmnRenderer' ];
