@@ -16,7 +16,11 @@ html {
 }
 
 a:link {
+  font-weight: bold;
   text-decoration: none;
+}
+p {
+  font-size: 14px;
 }
 
 .content {
@@ -162,9 +166,9 @@ a:link {
 
   > li {
     display: inline-block;
-    margin-right: 10px;
 
     > a {
+      margin-left: 5px;
       background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);
       border: solid 1px #DDD;
       display: inline-block;
@@ -177,12 +181,19 @@ a:link {
     }
   }
 
-  a {
+#js-download-diagram,
+#js-download-svg {
     opacity: 0.3;
+    pointer-events: none;
+    cursor:default;
+
   }
 
-  a.active {
+#js-download-diagram.active,
+#js-download-svg.active  {
     opacity: 1.0;
+    pointer-events: auto;
+    cursor: pointer;
   }
 
   a:hover{

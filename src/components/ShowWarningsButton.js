@@ -14,7 +14,7 @@ export function setupShowWarningsButton(applyWarningHighlight, showWarningText) 
         e.preventDefault();
         // Toggle the flag and the text depending on if the warnings are visible or not
         showWarnings = !showWarnings;
-        showWarningsButton.text(showWarnings ? 'Hide Warnings' : 'Show Warnings');
+        showWarningsButton.text(showWarnings ? 'Hide warnings' : 'Show warnings');
         applyWarningHighlight();
         showWarningText();
 

@@ -2,8 +2,10 @@
 <html>
 <head>
   <title>CAMo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <input type="file" id="js-file-input-before-load" class="js-file-input" accept=".bpmn,.xml" style="display:none;" />
   <div class="content" id="js-drop-zone">
 
     <div class="message">
@@ -11,8 +13,20 @@
         CAMo - Context-Aware Modeler for BPMN
       </div>
       <div class="note">
-        Drop BPMN diagram from your desktop or <a id="js-create-diagram" href>create a new diagram</a> to get started.
+        Drag and drop a BPMN file from your desktop or create a new diagram to get started.
       </div>
+    <div>
+        <button id="js-create-diagram" class="new-diagram-button">
+          Create new diagram
+        </button>
+          <button id="js-import-diagram-before-load" class="js-import-diagram new-diagram-button">
+            Import BPMN diagram
+          </button>
+    </div>
+    <div>
+          <p class="note">CAMo is open source and available on <a href="https://github.com/Chocolatina24/CAMo" style="text-decoration: underline;">GitHub</a>.</p>
+
+    </div>
     </div>
 
     <div class="message error">
@@ -32,9 +46,12 @@
     <div class= "all-buttons-parent" id="all-buttons">
       <ul class="buttons-left">
         <li>
-          <button id="js-create-new-diagram-button" class="new-diagram-button">
-            Create new diagram
-          </button>
+          <a id="js-create-new-diagram-button" href title="Create new diagram" class="new-diagram-button">
+            <i class="fa-solid fa-plus"></i>
+          </a>
+            <a id="js-import-diagram-after-load" href title="Import BPMN diagram" class="js-import-diagram new-diagram-button">
+            <i class="fa-solid fa-file-import"></i>  
+          </a>        
           <div id="confirm-window" class="confirmation-window" style="display:none;">
           <div class="confirmation-window-content">
           <p>Your progress will be deleted. Are you sure you want to create a new diagram?</p>
@@ -43,13 +60,13 @@
         </li>
         <li>
           <a id="js-download-diagram" href title="Export BPMN diagram">
-            Export BPMN diagram
+            <i class="fa-solid fa-download"></i>
           </a>
         </li>
 
         <li>
           <a id="js-download-svg" href title="Export as SVG image">
-            Export SVG image
+            <i class="fa-regular fa-image"></i>
           </a>
         </li>
       </ul>

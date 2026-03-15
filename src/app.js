@@ -141,6 +141,25 @@ $(function() {
     createNewDiagram();
   });
 
+  $('.js-import-diagram').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $('.js-file-input').trigger('click');
+    $('.js-file-input').val(''); // Reset so same file can be selected again
+  });
+
+  $('.js-file-input').change(function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(evt) {
+      var xml = evt.target.result;
+      openDiagram(xml);
+    };
+    reader.readAsText(file);
+    $(this).val(''); // Reset so same file can be selected again
+  });
+
   $('#js-create-new-diagram-button').click(function(e) {
     e.stopPropagation();
     e.preventDefault();
