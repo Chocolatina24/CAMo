@@ -1,120 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CAMo</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-  <input type="file" id="js-file-input-before-load" class="js-file-input" accept=".bpmn,.xml" style="display:none;" />
-  <div class="content" id="js-drop-zone">
+  <head>
+    <title>CAMo</title>
+    <!-- Style sheet for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
 
-    <div class="message">
-      <div class="title">
-        CAMo - Context-Aware Modeler for BPMN
-      </div>
-      <div class="note">
-        Drag and drop a BPMN file from your desktop or create a new diagram to get started.
-      </div>
-    <div>
-        <button id="js-create-diagram" class="new-diagram-button">
-          Create new diagram
-        </button>
+  <body>
+    <input type="file" id="js-file-input-before-load" class="js-file-input" accept=".bpmn,.xml" style="display:none;" />
+    
+    <div class="content" id="js-drop-zone">
+      <div class="message">
+        <!-- Initial message shown when no diagram is loaded -->
+        <div class="title">
+          CAMo - Context-Aware Modeler for BPMN
+        </div>
+        <div class="note">
+          Drag and drop a BPMN file from your desktop or create a new diagram to get started.
+        </div>
+        <!-- Buttons for creating a new diagram or importing an existing one, shown with the title -->
+        <div>
+          <button id="js-create-diagram" class="new-diagram-button">
+            Create new diagram
+          </button>
           <button id="js-import-diagram-before-load" class="js-import-diagram new-diagram-button">
             Import BPMN diagram
           </button>
-    </div>
-    <div>
+        </div>
+        <div>
           <p class="note">CAMo is open source and available on <a href="https://github.com/Chocolatina24/CAMo" style="text-decoration: underline;">GitHub</a>.</p>
-
-    </div>
-    </div>
-
-    <div class="message error">
-      <div class="note">
-        <p>Ooops, we could not display the BPMN 2.0 diagram.</p>
-
-        <div class="details">
-          <span>cause of the problem</span>
-          <pre></pre>
         </div>
       </div>
-    </div>
 
-    <div class="canvas" id="js-canvas"></div>
-    <div class="properties-panel-parent" id="js-properties-panel"></div>
+      <!-- Error message shown when there is an issue loading or displaying the diagram -->
+      <div class="message error">
+        <div class="note">
+          <p>Ooops, we could not display the BPMN 2.0 diagram.</p>
 
-    <div class= "all-buttons-parent" id="all-buttons">
-      <ul class="buttons-left">
-        <li>
-          <a id="js-create-new-diagram-button" href title="Create new diagram" class="new-diagram-button">
-            <i class="fa-solid fa-plus"></i>
-          </a>
-            <a id="js-import-diagram-after-load" href title="Import BPMN diagram" class="js-import-diagram new-diagram-button">
-            <i class="fa-solid fa-file-import"></i>  
-          </a>        
-          <div id="confirm-window" class="confirmation-window" style="display:none;">
-          <div class="confirmation-window-content">
-          <p>Your progress will be deleted. Are you sure you want to create a new diagram?</p>
-          <button id="confirm-create-diagram" class="new-diagram-button">Yes, create new diagram</button>
-          <button id="cancel-create-diagram" class="new-diagram-button" style="margin:8px;">Cancel</button>
-        </li>
-        <li>
-          <a id="js-download-diagram" href title="Export BPMN diagram">
-            <i class="fa-solid fa-download"></i>
-          </a>
-        </li>
-
-        <li>
-          <a id="js-download-svg" href title="Export as SVG image">
-            <i class="fa-regular fa-image"></i>
-          </a>
-        </li>
-      </ul>
-
-      <ul class="buttons-right">
-        <li>
-          <div class="warning-container">
-            <span id="js-warning-text" class="warning-text">Warning: you have relationships with unassigned rationale</span>
-            <button id="js-warning-button" class="warning-button">Hide warnings</button>
+          <div class="details">
+            <span>cause of the problem</span>
+            <pre></pre>
           </div>
-        </li>
+        </div>
+      </div>
 
-        <li>
-          <div class="filter-menu">
-            <button id="js-filter-toggle" class="filter-toggle">Filters</button>
-              <div class="filter-content" id="js-filter-content">
-                <label>
-                  <span class="implicit-icon"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
-                <label>
-                  <span class="rationale-color rationale-color-best-practice"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice
-                </label>
-                <label>
-                  <span class="rationale-color rationale-color-business-rule"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Business rule" checked> Show Business Rule
-                </label>
-                <label>
-                  <span class="rationale-color rationale-color-norm-or-law"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Norm or law" checked> Show Norm or Law
-                </label>
-                <label>
-                  <span class="rationale-color rationale-color-law-of-nature"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Law of nature" checked> Show Law of Nature
-                </label>
-                <label>
-                  <span class="rationale-color rationale-color-not-assigned"></span>
-                  <input type="checkbox" class="filter-checkbox" value="Not assigned" checked> Show Not Assigned
-                </label>
-                <div class="filter-toggle-row">
-                  <button id="js-toggle-show-all" class="filter-toggle"> Show All </button>
-                  <button id="js-toggle-hide-all" class="filter-toggle"> Hide All </button>
+      <!-- Canvas and properties panel -->
+      <div class="canvas" id="js-canvas"></div>
+      <div class="properties-panel-parent" id="js-properties-panel"></div>
+
+      <div class= "all-buttons-parent" id="all-buttons">
+        <!-- Buttons for creating a new diagram, import and export -->
+        <ul class="buttons-left">
+          <li>
+            <a id="js-create-new-diagram-button" href title="Create new diagram" class="new-diagram-button">
+              <i class="fa-solid fa-plus"></i>
+            </a>
+              <a id="js-import-diagram-after-load" href title="Import BPMN diagram" class="js-import-diagram new-diagram-button">
+              <i class="fa-solid fa-file-import"></i>  
+            </a>   
+            <!-- Confirmation window for creating a new diagram -->     
+            <div id="confirm-window" class="confirmation-window" style="display:none;">
+            <div class="confirmation-window-content">
+            <p>Your progress will be deleted. Are you sure you want to create a new diagram?</p>
+            <button id="confirm-create-diagram" class="new-diagram-button">Yes, create new diagram</button>
+            <button id="cancel-create-diagram" class="new-diagram-button" style="margin:8px;">Cancel</button>
+          </li>
+          <li>
+            <a id="js-download-diagram" href title="Export BPMN diagram">
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </li>
+
+          <li>
+            <a id="js-download-svg" href title="Export as SVG image">
+              <i class="fa-regular fa-image"></i>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Warnings button and filter menu -->
+        <ul class="buttons-right">
+          <li>
+            <div class="warning-container">
+              <span id="js-warning-text" class="warning-text">Warning: you have relationships with unassigned rationale</span>
+              <button id="js-warning-button" class="warning-button">Hide warnings</button>
+            </div>
+          </li>
+
+          <li>
+            <div class="filter-menu">
+              <button id="js-filter-toggle" class="filter-toggle">Filters</button>
+                <div class="filter-content" id="js-filter-content">
+                  <label>
+                    <span class="implicit-icon"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Implicit" checked> Show Implicit </label>
+                  <label>
+                    <span class="rationale-color rationale-color-best-practice"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Best practice" checked> Show Best Practice
+                  </label>
+                  <label>
+                    <span class="rationale-color rationale-color-business-rule"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Business rule" checked> Show Business Rule
+                  </label>
+                  <label>
+                    <span class="rationale-color rationale-color-norm-or-law"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Norm or law" checked> Show Norm or Law
+                  </label>
+                  <label>
+                    <span class="rationale-color rationale-color-law-of-nature"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Law of nature" checked> Show Law of Nature
+                  </label>
+                  <label>
+                    <span class="rationale-color rationale-color-not-assigned"></span>
+                    <input type="checkbox" class="filter-checkbox" value="Not assigned" checked> Show Not Assigned
+                  </label>
+                  <div class="filter-toggle-row">
+                    <button id="js-toggle-show-all" class="filter-toggle"> Show All </button>
+                    <button id="js-toggle-hide-all" class="filter-toggle"> Hide All </button>
+                  </div>
                 </div>
-              </div>
-          </div>
-        </li>
-      </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </body>
   <script src="app.js"></script>
 </html>

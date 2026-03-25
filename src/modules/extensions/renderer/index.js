@@ -1,7 +1,7 @@
-import ImplicitArrowRenderer from './ImplicitArrowRenderer';
+import CustomArrowRenderer from './CustomArrowRenderer';
 
 
 export default {
-    __init__: ['implicitArrowRenderer'],
-        implicitArrowRenderer: ['type', ImplicitArrowRenderer],
+    __init__: ['customArrowRenderer'],
+        customArrowRenderer: ['type', CustomArrowRenderer],
 };

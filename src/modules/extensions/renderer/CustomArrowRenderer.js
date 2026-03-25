@@ -2,7 +2,11 @@ import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { showWarnings } from '../../../components/ShowWarningsButton';
 import { assign } from 'min-dash';
 
+// Custom renderer extension to differentiate arrows based on their rationale and implicit/explicit status
+// Note that the styling made by the custom renderer is persisted when the diagram is exported as svg
+// Code modified from https://github.com/bpmn-io/bpmn-js-task-priorities/blob/main/lib/priorities/ColorRenderer.js
 
+// Priority is higher than the default BPMN renderer to ensure our styles are applied
 const HIGH_PRIORITY = 1500;
 
 export default class ImplicitArrowRenderer extends BaseRenderer {
@@ -12,28 +16,29 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
     }
 
     canRender(element) {
-        // Only render sequence flows
+        // Only render sequence flows differently, other elements are rendered by the default BPMN renderer
         return element.type === 'bpmn:SequenceFlow';
     }
 
     drawConnection(visuals, connection) {
-        //Handle unassigned values
+        //Get rationale and implicit properties of the connection to determine styling
         const rationale = connection.businessObject?.rationale || 'not_specified';
         const isImplicit = connection.businessObject?.implicit || false;
 
         let color;
         switch (rationale) {
+            // Color palette from https://davidmathlogic.com/colorblind
             case 'best_practice':
-                color = '#13DCA7';
+                color = '#44AA99';
                 break;
             case 'business_rule':
-                color = '#8081EF'; 
+                color = '#88CCEE'; 
                 break;
             case 'norm_or_law':
-                color = '#FF81F1';
+                color = '#AA4499';
                 break;
             case 'law_of_nature':
-                color = '#F5CD68';
+                color = '#EFD036';
                 break;
             case 'not_specified':
                 color = 'black';
@@ -55,19 +60,24 @@ export default class ImplicitArrowRenderer extends BaseRenderer {
         ];
         const isSourceActivity = connection.source && connection.source.businessObject && activityTypes.includes(connection.source.businessObject.$type);
         const isTargetActivity = connection.target && connection.target.businessObject && activityTypes.includes(connection.target.businessObject.$type);
-        const isRationaleNotAssigned = showWarnings && rationale === 'not_specified' && isSourceActivity && isTargetActivity;
+        const isRationaleNotAssigned = rationale === 'not_specified' || !rationale;
+        const connectsActivities = isSourceActivity && isTargetActivity;
+        // Arrows should be highlighted if rationale is not assigned, warnings are enabled, and the arrow connects two activities
+        const shouldHighlight = showWarnings && isRationaleNotAssigned && connectsActivities;
 
+        // If rationale is not assigned and warnings are enabled, use red color and thicker stroke to highlight
         const attrs = assign({
-            stroke: isRationaleNotAssigned ? 'red' : color,
-            strokeWidth: isRationaleNotAssigned ? 3 : 2,
+            stroke: shouldHighlight ? 'red' : color,
+            strokeWidth: shouldHighlight ? 3 : 2,
         });
 
         const path = this.bpmnRenderer.drawConnection(visuals, connection, attrs);
+
         if(path && path.setAttribute) {
             // If arrow is implicit make it dashed
             path.setAttribute('stroke-dasharray', isImplicit ? '10,4,2,4' : '');
-            // If rationale is not assigned and warnings are enabled, add a warning highlight
-            if(isRationaleNotAssigned) {
+            // If rationale is not assigned and warnings are enabled, add a warning highlight animation
+            if(shouldHighlight) {
                 path.classList.add('warning-highlight');
             } else {
                 path.classList.remove('warning-highlight');

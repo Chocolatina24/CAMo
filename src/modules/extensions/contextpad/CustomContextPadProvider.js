@@ -1,5 +1,8 @@
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
+// Context Pad extension to allow setting a sequence flow as implicit (dashed) directly from the context pad
+// Code modified from example https://github.com/bpmn-io/bpmn-js-example-custom-controls/blob/master/app/custom/CustomContextPad.js
+
 export default class CustomContextPadProvider {
   constructor(contextPad, modeling, translate, contextPadProvider) {
     this.modeling = modeling;
@@ -23,7 +26,7 @@ export default class CustomContextPadProvider {
         action: {
           click: function() {
             modeling.updateProperties(element, {
-              //Toggle implicit property
+              // Toggle implicit property
               implicit: !element.businessObject.implicit,
               conditionExpression: undefined,
               isDefault: false

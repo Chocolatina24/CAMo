@@ -1,7 +1,11 @@
 import { DropdownButton } from '../../../components/templates/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../style/Dropdown.less';
+import '../../../style/dropdownStyle.less';
+
+// Dropdown entry that allows the user to select an explanatory rationale for an activity relationship
+// The selected rationale is saved as a property in the bpmn xml file
+
 export default function(element) {
 
   return [
@@ -18,14 +22,10 @@ function ExplanatoryRationale(props){
   const { element} = props;
   const modeling = useService('modeling');
 
-  //If a rationale has not been assigned yet, default to 'not_specified'
-  /*if(!element.businessObject.rationale){
-    modeling.updateProperties(element, { rationale: 'not_specified'});
-  }*/
   //Get the currently assigned rationale
   const currentExplanatoryRationale = element.businessObject?.rationale || 'Select a rationale';
   //Define the items for the dropdown menu
-  // 'entry' is the displayed text, but 'rationale' is the actual value of the property saved in the bpmn file
+  // 'entry' is the displayed text, but 'rationale' is the actual value of the property saved in the bpmn xml file
   const menuItems = [
     {
       entry: 'Best practice',
@@ -57,7 +57,7 @@ function ExplanatoryRationale(props){
   />`;
 }
 
-//Helper function to display the correct text in the dropdown when a rationale is selected
+//Helper function to display the correct text in the dropdown button for the currently selected rationale
 function mapRationaleToMenuEntry(explanatoryRationale) {
   switch (explanatoryRationale) {
     case 'best_practice':

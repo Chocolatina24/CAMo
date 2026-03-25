@@ -4,11 +4,8 @@
 
 body,
 html {
-
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
   font-size: 12px;
-
   height: 100%;
   max-height: 100%;
   padding: 0;
@@ -90,72 +87,44 @@ p {
   &.with-diagram .canvas {
     visibility: visible;
   }
+  //Context pad should be behind the properties panel but in front of the diagram
   .djs-context-pad {
     z-index: 0 !important;
   }
+  // Properties panel is hidden by default 
     .properties-panel-parent {
     visibility: hidden;
   }
-
+  // Properties panel and buttons are visible when diagram is loaded
   &.with-diagram .properties-panel-parent {
     visibility: visible;
   }
   &.with-diagram .all-buttons-parent {
-  visibility: visible;
-}
-
-  .properties-panel-parent {
-    position: absolute;
-    top: 1px;
-    bottom: 1px;
-    right: 0;
-    width: 260px;
-    z-index: 10;
-    border-left: 1px solid #ccd4e0;
-    background: linear-gradient(180deg, #f0f4ff 0%, #f0f4ff 100%);
-    border-radius: 8px 0 0 8px;
-    overflow: auto;
-    box-shadow: -2px 0 8px rgba(74,144,226,0.15);
-    &:empty {
-      display: none;
-    }
-    > .djs-properties-panel {
-      padding-bottom: 70px;
-      min-height:100%;
-      background: linear-gradient(135deg, #f0f4ff 0%, #f0f4ff 100%);
-    }
+    visibility: visible;
   }
-}
-/* Custom property group styling */
-.properties-panel-parent .bio-properties-panel-group {
-  border-radius: 12px;
-  margin: 16px 12px;
-  background: linear-gradient(180deg, #e6f7ff 0%, #f0f4ff 100%);
-  box-shadow: 0px 2px 8px rgba(74,144,226,0.08);
-  border: 1px solid #a2d9ff;
-}
-
-.properties-panel-parent .bio-properties-panel-group-header {
-  border-radius: 12px 12px;
-  background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 45%, #f0f4ff 100%);
-  color: #205081;
-  font-size: 16px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: bold;
-}
-.properties-panel-parent .bio-properties-panel-header {
-  background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);
-  color: #205081;
-  font-size: 16px;
-  font-weight: bold;
-  border-bottom: 0px;
-  padding: 18px 16px;
 }
 
 .all-buttons-parent {
   visibility: hidden;
 }
 
+// Style for buttons on the right side (filter menu & warnings)
+// This is mostly for positioning, the actual button styles are defined in their respective files
+.buttons-right {
+  position: fixed;
+  bottom: 20px;
+  right: 300px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  > li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+// Style for buttons on the left side (new diagram, export, import)
 .buttons-left {
   position: absolute;
   bottom: 20px;
@@ -166,7 +135,7 @@ p {
 
   > li {
     display: inline-block;
-
+    // Style for buttons
     > a {
       width: 34px;
       height: 34px;
@@ -176,11 +145,9 @@ p {
       display: inline-block;
       padding: 5px;
       border-radius: 5px;
-      font-size: 14px;
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      font-weight: 400;
       color: #063a6e
     }
+    // Style for icons inside buttons
     i {
       font-size: 18px;
       display: flex;
@@ -190,6 +157,7 @@ p {
     }
   }
 
+// Disabled state for export buttons when no changes are made yet or when there is no diagram loaded
 #js-download-diagram,
 #js-download-svg {
     opacity: 0.3;
@@ -197,7 +165,7 @@ p {
     cursor:default;
 
   }
-
+// Active state for export buttons
 #js-download-diagram.active,
 #js-download-svg.active  {
     opacity: 1.0;
@@ -210,45 +178,13 @@ p {
   }
 }
 
-.buttons-right {
-  position: fixed;
-  bottom: 20px;
-  right: 300px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  > li {
-    display: inline-block;
-    margin-right: 10px;
-
-    > a {
-      background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);      color :#111;
-      border: solid 1px #DDD;
-      display: inline-block;
-      padding: 5px;
-      border-radius: 5px;
-    }
-  }
-}
-
+// Move the (right) buttons further to the right when properties panel is not visible
 .without-properties-panel .buttons-right {
   left: auto;
   right: 100px;
 }
 
-// Style implicit arrows with a different color
-.highlight-implicit {
-  opacity: 0.6 !important;
-  path {
-    stroke: #508555 !important;
-    stroke-width: 2 !important;
-  }
-  marker path {
-    fill: #508555 !important;
-    stroke: #50855540 !important;
-  }
-}
+// Style for the implicit arrow icon used in the context pad
 .implicit-arrow-icon {
   width: 24px;
   height: 24px;
@@ -258,8 +194,8 @@ p {
   filter: none ;
 }
 
+// Style for the palette and its entries to match the overall design
 .djs-palette {
-  //background: #f0f4ff;
   background: linear-gradient(130deg, #b5c3e3 0%, #dbdeff 45%, #e9ebfc 70%, #f0f4ff 100%);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(74,144,226,0.15);

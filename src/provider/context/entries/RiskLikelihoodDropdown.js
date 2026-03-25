@@ -1,8 +1,10 @@
 import { DropdownButton } from '../../../components/templates/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../style/Dropdown.less';
+import '../../../style/dropdownStyle.less';
 
+// Dropdown entry that allows the user to select a risk likelihood for an activity relationship
+// The selected risk likelihood is saved as a property in the bpmn xml file
 
 export default function(element) {
 
@@ -20,15 +22,10 @@ function RiskLikelihood(props){
   const { element} = props;
   const modeling = useService('modeling');
 
-      //If a risk likelihood has not been assigned yet, default to 'not_specified'
-  /*if(!element.businessObject.risk_likelihood) { 
-    modeling.updateProperties(element, { risk_likelihood: 'not_specified'});
-  }*/
-
   //Get the currently assigned risk likelihood
   const currentRiskLikelihood = element.businessObject?.risk_likelihood || 'Select a risk likelihood';
   //Define the items for the dropdown menu
-  // 'entry' is the displayed text, but 'risk_likelihood' is the actual value of the property saved in the bpmn file
+  // 'entry' is the displayed text, but 'risk_likelihood' is the actual value of the property saved in the bpmn xml file
   const menuItems = [
      {
       entry: 'Very high risk',
@@ -60,7 +57,7 @@ function RiskLikelihood(props){
   />`;
 }
 
-//Helper function to display the correct text in the dropdown when a risk likelihood is selected
+//Helper function to display the correct text in the dropdown button for the currently selected risk likelihood
 function mapRiskLikelihoodToEntry(riskLikelihood) {
   switch (riskLikelihood) {
     case 'very_high_risk':

@@ -1,6 +1,8 @@
 import { html } from 'htm/preact';
 import { DescriptionEntry } from '@bpmn-io/properties-panel';
 
+// Description entry that provides an explanation for the selected rationale in the explanatory rationale dropdown menu
+
 export default function(element) {
 
   return [

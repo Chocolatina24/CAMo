@@ -1,3 +1,4 @@
+// Style for the filter menu
 
 .filter-menu {
   background: white;
@@ -74,9 +75,8 @@
 
 // Grey out filtered elements 
 .filtered-hidden-explicit {
-  opacity: 0.3 !important;
+  opacity: 0.8 !important;
   filter: grayscale(100%);
-  pointer-events: none;
 }
 
 .filtered-hidden-implicit {
@@ -91,11 +91,12 @@
   margin-right: 6px;
   border-radius: 3px;
 }
-
-.rationale-color-best-practice { background: #13DCA7; }
-.rationale-color-business-rule { background: #8081EF; }
-.rationale-color-norm-or-law { background: #FF81F1; }
-.rationale-color-law-of-nature { background: #F5CD68; }
+// Colors for the legend in the filter menu for each rationale type
+// The actual colors for the arrow rendering are defined in the ImplicitArrowRenderer file
+.rationale-color-best-practice { background: #44AA99; }
+.rationale-color-business-rule { background: #88CCEE; }
+.rationale-color-norm-or-law { background: #AA4499; }
+.rationale-color-law-of-nature { background: #EFD036; }
 .rationale-color-not-assigned { background: #000000; }
 .implicit-icon{ 
   width: 14px;

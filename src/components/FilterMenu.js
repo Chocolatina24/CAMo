@@ -1,5 +1,8 @@
 import $ from 'jquery';
 
+// Filter menu component that allows to show/hide BPMN sequence flows 
+// based on their rationale and their implicit/explicit status
+
 // Setup filter UI and event listeners
 export function setupFilterMenu(applyFilters) {
   const filterToggle = $('#js-filter-toggle');
@@ -21,18 +24,20 @@ export function setupFilterMenu(applyFilters) {
     applyFilters();
   });
 
+  // Toggle menu visibility when filter toggle is clicked
   filterToggle.click(function(e){
     e.preventDefault();
     e.stopPropagation();
     filterContent.toggleClass('open');
   });
 
+  // Apply filters whenever a checkbox is checked or unchecked
   filterCheckboxes.change(function() {
     applyFilters();
   });
 }
 
-// Filter logic: show/hide BPMN sequence flows based on rationale property
+// Filter logic: show/hide BPMN sequence flows based on the rationale property
 export function applyFilters(bpmnModeler) {
   // Get checked filter values
   const checkedFilters = $('.filter-checkbox:checked').map(function() {
@@ -42,7 +47,10 @@ export function applyFilters(bpmnModeler) {
   // Get BPMN.js services
   const elementRegistry = bpmnModeler.get('elementRegistry');
   const canvas = bpmnModeler.get('canvas');
+
+  // Get all possible filter values for easier checks
   const allFilters = ['Best practice', 'Business rule', 'Law or norm', 'Law of nature', 'Implicit', 'All'];
+  // Get activity types for explicit arrow handling (only focus on arrows connecting activities)
   const activityTypes = [
         'bpmn:Task',
         'bpmn:SubProcess',
@@ -68,51 +76,43 @@ export function applyFilters(bpmnModeler) {
       return;
     }
 
+    // Determine the rationale and implicit properties of the element
     const isImplicit = element.businessObject?.implicit === undefined ? false : element.businessObject.implicit;
     const rationale = mapRationaleToFilter(element.businessObject?.rationale);
+    const connectsActivities = activityTypes.includes(element.source?.businessObject?.$type) && activityTypes.includes(element.target?.businessObject?.$type);
 
-    // Find the label element for this arrow
+    // Find the label element for this arrow (to apply the same hide/show marker as the arrow)
     const labelElement = elementRegistry.get(element.label && element.label.id);
 
     // Determine if THIS element should be shown (reset for each element)
     let shouldShow = false;
 
-    // Special handling for implicit elements
+    // Handling for implicit elements
     if (isImplicit) {
-      // Implicit elements REQUIRE the Implicit filter to be checked
-      if (!checkedFilters.includes('Implicit') && isImplicit) {
-        shouldShow = false; // Always hide implicit elements if Implicit filter is unchecked
+      // Implicit elements REQUIRE the Implicit filter to be checked, otherwise they are hidden regardless of rationale
+      if (!checkedFilters.includes('Implicit')) {
+        shouldShow = false; 
       } else {
-        // Implicit filter is checked, now check other conditions
-        if (checkedFilters.length === allFilters.length) {
-          shouldShow = true; // All filters checked
-        } else if (rationale && checkedFilters.includes(rationale)) {
-          shouldShow = true; // Rationale matches a checked filter
-        } else if (checkedFilters.includes('Implicit') && !rationale) {
-          shouldShow = true; // Show implicit elements without rationale if Implicit is checked
+          // Implicit filter is checked, now check other conditions
+          if (checkedFilters.length === allFilters.length) {
+            shouldShow = true; // All filters checked, show everything
+          } else if (rationale && checkedFilters.includes(rationale)) {
+            shouldShow = true; // Rationale matches a checked filter (including not assigned if rationale is not set)
+          }
         }
-      }
     } 
-    // Explicit elements
+    // Handling for explicit elements
     else {
-      if (checkedFilters.length === allFilters.length) {
-        shouldShow = true; // All filters checked
-      } else if (checkedFilters.length === 0) {
-        if (activityTypes.includes(element.source?.businessObject?.$type) &&
-            activityTypes.includes(element.target?.businessObject?.$type)) {
-            shouldShow = false; // Hide only if both are activities and no rationale
-          } else {
-            shouldShow = true; // Show otherwise
-  }      } else if (rationale && checkedFilters.includes(rationale)) {
-        shouldShow = true; // Rationale matches a checked filter
-      } else if (!rationale || rationale === 'Not assigned') {
-        if(activityTypes.includes(element.source?.businessObject?.$type) &&
-         activityTypes.includes(element.target?.businessObject?.$type) &&
-         !checkedFilters.includes('Not assigned')) {
-        shouldShow = false; // Explicit elements without rationale are hidden if not all filters checked
-        } else {
-          shouldShow = true; // Show explicit elements without rationale if they are not connecting two activities
+      if (connectsActivities) { //Focus only on arrows connecting activities
+        if (checkedFilters.length === allFilters.length) {
+          shouldShow = true; // All filters checked, show everything
+        } else if (checkedFilters.length === 0) {
+          shouldShow = false; // No filters checked, hide arrows connecting activities
+        } else if (rationale && checkedFilters.includes(rationale)) {
+        shouldShow = true; // Rationale matches a checked filter, including not assigned if rationale is not set
         }
+      } else {
+        shouldShow = true; //Always show arrows that are not connecting activities
       }
     }
 

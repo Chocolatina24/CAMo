@@ -2,6 +2,9 @@ import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
 import {CheckboxEntry, isCheckboxEntryEdited } from '@bpmn-io/properties-panel';
 
+// Properties panel entry to toggle the 'implicit' property of an activity relationship
+// See also the CustomContextPadProvider for another way to toggle the property directly from the context pad
+
 export default function(element) {
 
   return [
@@ -31,12 +34,12 @@ function ImplicitProperty(props){
         });
     };
 
-  //Return a checkbox entry, template reused from properties panel default entries
+  //Return a checkbox entry, template used from properties panel default entries
   return html`<${CheckboxEntry}
     element=${element}
     id=${id} 
     label=${translate('Implicit relationship')} 
-    description=${translate('If checked, this activity relationship is implicit, otherwise explicit.')}
+    description=${translate('If checked, this activity relationship is implicit (activities not connected in the control flow), otherwise explicit.')}
     getValue=${ getValue }
     setValue=${ setValue } 
   />`;

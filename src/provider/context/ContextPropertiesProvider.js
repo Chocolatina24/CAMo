@@ -6,6 +6,15 @@ import riskLikelihood from './entries/RiskLikelihoodDropdown';
 import descriptionExplanatoryRationale from './entries/ExplanatoryRationaleDescription';
 import descriptionRiskType from './entries/RiskTypeDescription';
 
+// Custom properties provider for activity relationships
+// Custom property groups and their respective entries are defined and added to the properties panel
+// The panel is only visible when an arrow (sequence flow) connecting two activities is selected
+// The code for the properties panel and custom properties was adapted from the Camunda BPMN properties panel example:
+// https://github.com/bpmn-io/bpmn-js-examples/tree/main/properties-panel-extension and 
+// https://github.com/bpmn-io/bpmn-js-examples/tree/main/properties-panel-list-extension
+
+// The custom properties are persisted in the bpmn xml file, which allows to import and export custom diagrams
+
 const LOW_PRIORITY = 500;
 
 /**
@@ -39,7 +48,8 @@ export default function ContextPropertiesProvider(propertiesPanel, translate) {
     return function(groups) {
       
       // Add the custom groups to the properties provider
-      //The properties only apply to sequence flows because they represent activity relationships visually
+      // The properties only apply to sequence flows that connect activities because
+      // they represent the activity relationships visually
       if (is(element, 'bpmn:SequenceFlow')) {
         const activityTypes = [
           'bpmn:Task',

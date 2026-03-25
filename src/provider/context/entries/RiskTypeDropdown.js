@@ -1,8 +1,10 @@
 import { DropdownButton } from '../../../components/templates/DropdownButton';
 import { html } from 'htm/preact';
 import { useService } from 'bpmn-js-properties-panel';
-import '../../../style/Dropdown.less';
+import '../../../style/dropdownStyle.less';
 
+// Dropdown entry that allows the user to select a risk type for an activity relationship
+// The selected risk type is saved as a property in the bpmn xml file
 
 export default function(element) {
 
@@ -20,14 +22,10 @@ function RiskType(props){
   const { element} = props;
   const modeling = useService('modeling');
 
-    //If a risk type has not been assigned yet, default to 'not_specified'
-  /*if(!element.businessObject.risk_type) {
-    modeling.updateProperties(element, { risk_type: 'not_specified'});
-  }*/
   //Get the currently assigned risk type
   const currentRiskType = element.businessObject?.risk_type || 'Select a risk type';
   //Define the items for the dropdown menu
-  // 'entry' is the displayed text, but 'risk_type' is the actual value of the property saved in the bpmn file
+  // 'entry' is the displayed text, but 'risk_type' is the actual value of the property saved in the bpmn xml file
   const menuItems = [
     {
       entry: 'Data risk',
@@ -62,7 +60,7 @@ function RiskType(props){
   />`;
 }
 
-//Helper function to display the correct text in the dropdown when a risk type is selected
+//Helper function to display the correct text in the dropdown button for the currently selected risk type
 function mapRiskTypeToEntry(riskType) {
   switch (riskType){
     case 'data_risk':

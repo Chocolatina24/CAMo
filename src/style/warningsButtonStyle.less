@@ -13,7 +13,6 @@
     animation: pulse-red 1s 2;
 }
 .warning-button{
-    bottom: 20px;
     background: linear-gradient(180deg, #b5c3e3 0%, #dbdeff 40%, #f0f4ff 100%);
     border: solid 1px #DDD;
     display: inline-block;
@@ -28,17 +27,9 @@
         background: #CCC;
       }
 .warning-highlight {
-    animation: pulse-red 1s 2;
-    path {
-        stroke: red !important;
-        stroke-width: 2px !important;
-    }
-    marker path {
-        fill: red !important;
-        stroke: red40 !important;
-    }
+    animation: pulse 1s 2;
 }
-@keyframes pulse-red {
+@keyframes pulse {
     0% {
         stroke-width: 2px;
         opacity: 1;
